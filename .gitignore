@@ -1,0 +1,7 @@
+_reference/
+_test/
+packages/
+.git/
+.vs/
+KNFE/bin/
+KNFE/obj/
