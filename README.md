@@ -1,4 +1,4 @@
-# KNFE
+# KNFE (K.N.'s File Extractor)
 KNFE (pronounced "knife") is a C#-based CLI program for extracting and decoding various file formats.
 
 The current focus for KNFE falls upon the following types of file formats:
