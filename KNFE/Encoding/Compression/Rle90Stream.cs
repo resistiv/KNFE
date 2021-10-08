@@ -24,7 +24,7 @@ namespace KNFE.Encoding.Compression
         public Rle90Stream(Stream stream)
             : base(stream)
         {
-            br = new BinaryReader(base.stream);
+            br = new BinaryReader(base.Stream);
         }
 
         public override MemoryStream Decode()

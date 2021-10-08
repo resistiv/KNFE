@@ -18,7 +18,7 @@ namespace KNFE.Encoding
         public UuencodeStream(FileStream stream)
             : base(stream)
         {
-            sr = new StreamReader(base.stream);
+            sr = new StreamReader(base.Stream);
         }
 
         public override MemoryStream Decode()

@@ -70,22 +70,10 @@ namespace KNFE.Format.Archive
                     else
                         Program.Quit($"Invalid file attribute received for file '{dir.dirName}\\{dir.fileEntries[i].fileName}', quitting.");
 
+                    // Info
                     dir.fileEntries[i].offset = BigEndian.ToLeInt(br.ReadInt32());
                     dir.fileEntries[i].originalLength = BigEndian.ToLeInt(br.ReadInt32());
                     dir.fileEntries[i].compressedLength = BigEndian.ToLeInt(br.ReadInt32());
-                }
-            }
-
-            // File data block
-            foreach (Fallout1DatDirectoryEntry dir in dirEntries)
-            {
-                foreach (Fallout1DatFileEntry fe in dir.fileEntries)
-                {
-                    br.BaseStream.Seek(fe.offset, SeekOrigin.Begin);
-                    if (fe.compressed)
-                        fe.data = new Fallout1LzssStream(new MemoryStream(br.ReadBytes(fe.compressedLength)));
-                    else
-                        fe.data = new BinaryStream(new MemoryStream(br.ReadBytes(fe.originalLength)));
                 }
             }
         }
@@ -95,19 +83,21 @@ namespace KNFE.Format.Archive
             Logger.LogInfo(ToString());
 
             string outputPath = CreateOutputPath();
-            foreach (Fallout1DatDirectoryEntry dir in dirEntries)
+
+            // Iterate through directories
+            for (int i = 0; i < dirCount; i++)
             {
-                Logger.LogInfo(dir.ToString());
+                Logger.LogInfo(dirEntries[i].ToString());
 
                 string dirOutPath;
-                if (dir.dirName.Equals("."))
+                if (dirEntries[i].dirName.Equals("."))
                 {
                     // Ensures valid path, "." represents the root dir
                     dirOutPath = outputPath;
                 }
                 else
                 {
-                    dirOutPath = outputPath + dir.dirName;
+                    dirOutPath = outputPath + dirEntries[i].dirName;
                 }
 
                 // Create output subdirs
@@ -117,17 +107,43 @@ namespace KNFE.Format.Archive
                 }
 
                 // Process files
-                foreach (Fallout1DatFileEntry fe in dir.fileEntries)
+                for (int j = 0; j < dirEntries[i].fileCount; j++)
                 {
-                    Logger.LogInfo(fe.ToString());
+                    Logger.LogInfo(dirEntries[i].fileEntries[j].ToString());
 
-                    string dataOutPath = dirOutPath + "\\" + fe.fileName;
+                    string dataOutPath = dirOutPath + "\\" + dirEntries[i].fileEntries[j].fileName;
 
-                    using (MemoryStream file = fe.data.Decode())
+                    // Seek to data and create a MemoryStream
+                    MemoryStream data;
+                    br.BaseStream.Seek(dirEntries[i].fileEntries[j].offset, SeekOrigin.Begin);
+                    if (dirEntries[i].fileEntries[j].compressed)
                     {
-                        WriteFileFromStream(dataOutPath, file);
+                        // If compressed, we initialize an LZSS stream
+                        data = new MemoryStream(br.ReadBytes(dirEntries[i].fileEntries[j].compressedLength));
+                        dirEntries[i].fileEntries[j].data = new Fallout1LzssStream(data);
                     }
+                    else
+                    {
+                        // If binary data, initialize binary data stream
+                        data = new MemoryStream(br.ReadBytes(dirEntries[i].fileEntries[j].originalLength));
+                        dirEntries[i].fileEntries[j].data = new BinaryStream(data);
+                    }
+
+                    data = dirEntries[i].fileEntries[j].data.Decode();
+                    WriteFileFromStream(dataOutPath, data);
+
+                    // Dispose of resources to keep memory usage low, since the movie files in MASTER.DAT can eat memory like crazy
+                    // Cuts down memory usage from ~650MB to ~250MB at peak
+                    data = null;
+                    dirEntries[i].fileEntries[j].data.Stream = null;
+                    dirEntries[i].fileEntries[j] = null;
+                    // While running the garbage collector after every file is computationally harsh, it cuts down on memory usage from ~250MB to ~200MB at peak
+                    GC.Collect();
                 }
+
+                // Dispose of resources
+                dirEntries[i] = null;
+                GC.Collect();
             }
 
             br.Close();

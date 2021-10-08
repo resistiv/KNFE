@@ -27,7 +27,7 @@ namespace KNFE.Encoding
         public BinHex4Stream(Stream stream)
             : base(stream)
         {
-            br = new BinaryReader(base.stream);
+            br = new BinaryReader(base.Stream);
         }
 
         public override MemoryStream Decode()

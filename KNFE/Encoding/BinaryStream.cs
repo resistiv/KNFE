@@ -15,7 +15,7 @@ namespace KNFE.Encoding
         {
             // Since this is stream doesn't need to be decoded, we copy it into memory and return
             MemoryStream outStream = new MemoryStream();
-            stream.CopyTo(outStream);
+            Stream.CopyTo(outStream);
             return outStream;
         }
     }

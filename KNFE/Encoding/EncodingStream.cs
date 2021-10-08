@@ -7,11 +7,11 @@ namespace KNFE.Encoding
     /// </summary>
     public abstract class EncodingStream
     {
-        protected readonly Stream stream;
+        public Stream Stream;
 
         public EncodingStream(Stream stream)
         {
-            this.stream = stream;
+            Stream = stream;
         }
 
         /// <summary>
