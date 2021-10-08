@@ -15,6 +15,7 @@ An earlier version of KNFE exists, but it was poorly structured and not designed
 
 | File Format / Encoding  | Short Code | Long Code       |
 | ----------------------- | ---------- | --------------- |
+| BinHex 4.0 (*.hqx)      | ``bh4``    | ``binhex4.0``   |
 | Fallout 1's DAT (*.DAT) | ``f1d``    | ``fallout1dat`` |
 | uuencode (*.uu, *.uue)  | ``uue``    | ``uuencode``    |
 

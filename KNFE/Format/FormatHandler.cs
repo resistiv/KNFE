@@ -25,6 +25,14 @@ namespace KNFE.Format
         {
             new FormatDescription()
             {
+                Format = FormatType.BinHex4,
+                FormatName = "BinHex 4.0",
+                FormatShortCode = "bh4",
+                FormatLongCode = "binhex4.0",
+                AssemblyName = $"{Globals.ProgramName}.Format.BinHex4Format, {Globals.ProgramName}"
+            },
+            new FormatDescription()
+            {
                 Format = FormatType.Fallout1Dat,
                 FormatName = "Fallout 1 DAT",
                 FormatShortCode = "f1d",
@@ -38,22 +46,12 @@ namespace KNFE.Format
                 FormatShortCode = "uue",
                 FormatLongCode = "uuencode",
                 AssemblyName = $"{Globals.ProgramName}.Format.UuencodeFormat, {Globals.ProgramName}"
-            },
-            new FormatDescription()
-            {
-                Format = FormatType.BinHex4,
-                FormatName = "BinHex 4.0",
-                FormatShortCode = "bh4",
-                FormatLongCode = "binhex4.0",
-                AssemblyName = $"{Globals.ProgramName}.Format.BinHex4Format, {Globals.ProgramName}"
             }
         };
 
         /// <summary>
         /// Resolves a FormatType from a format code string.
         /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
         public static FormatType ResolveFormat(string code)
         {
             // Check if provided string matches any known ShortCode or LongCode
