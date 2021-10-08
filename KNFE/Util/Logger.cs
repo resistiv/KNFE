@@ -34,6 +34,7 @@ namespace KNFE.Util
         /// </summary>
         public static void LogWarn(string s)
         {
+            s = s.Replace("\n", $"\n{"[...] ".Pastel(Color.Yellow)}");
             Console.WriteLine($"{"[WRN]".Pastel(Color.Yellow)} {s}");
             return;
         }
@@ -43,6 +44,7 @@ namespace KNFE.Util
         /// </summary>
         public static void LogError(string s)
         {
+            s = s.Replace("\n", $"\n{"[...] ".Pastel(Color.Red)}");
             Console.WriteLine($"{"[ERR]".Pastel(Color.Red)} {s}");
             return;
         }
@@ -63,6 +65,7 @@ namespace KNFE.Util
         /// </summary>
         public static void LogDebug(string s)
         {
+            s = s.Replace("\n", $"\n{"[...] ".Pastel(Color.MediumPurple)}");
             Console.WriteLine($"{"[DEB]".Pastel(Color.MediumPurple)} {s}");
             return;
         }

@@ -10,7 +10,7 @@ namespace KNFE.Format
     /// </summary>
     public class UuencodeFormat : FileFormat
     {
-        // Start and end indicators
+        // Start indicator
         private const string HEADER = "begin";
 
         private readonly string newLineConfig;
@@ -27,16 +27,19 @@ namespace KNFE.Format
             output = new UuencodeStream(inFileStream);
 
             // Identify newline pattern in order to properly calculate an offset
-            newLineConfig = FindNewLine(sr);
+            newLineConfig = Tools.FindNewLine(sr);
+
             if (newLineConfig.Equals(string.Empty))
+            {
                 Program.Quit("Could not identify newline configuration, quitting.");
+            }
 
             // Find our header in a text file; validation
             string header = SeekStreamHeader(sr);
 
-            if (header == null)
+            if (header.Equals(string.Empty))
             {
-                Program.Quit($"Could not find uuencode header, quitting.");
+                Program.Quit($"Could not find {base.formatName} header, quitting.");
             }
 
             // Header is in format "begin <perms> <filename>"
@@ -45,13 +48,13 @@ namespace KNFE.Format
             // Confirm header style
             if (headerInfo.Length != 3)
             {
-                Program.Quit("Malformed uuencode header, quitting.");
+                Program.Quit($"Malformed {base.formatName} header, quitting.");
             }
 
             // Confirm perm range
             if (Convert.ToInt32(headerInfo[1]) < 0 || Convert.ToInt32(headerInfo[1]) > 777)
             {
-                Program.Quit("Malformed uuencode permissions, quitting.");
+                Program.Quit($"Malformed {base.formatName} permissions, quitting.");
             }
 
             permissions = ConvertUnixOctalPerms(headerInfo[1]);
@@ -126,32 +129,6 @@ namespace KNFE.Format
                 {
                     sr.BaseStream.Seek(offset, SeekOrigin.Begin);
                     return temp;
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Finds the newline pattern for the current stream.
-        /// </summary>
-        private string FindNewLine(StreamReader sr)
-        {
-            // Buffer for reading data
-            byte[] data = new byte[sr.BaseStream.Length];
-            // Read data into buffer
-            sr.BaseStream.Read(data, 0, (int)sr.BaseStream.Length);
-
-            // Convert data to string
-            string testData = System.Text.Encoding.ASCII.GetString(data);
-
-            // Check cases
-            string[] cases = { "\r\n", "\r", "\n" };
-            for (int i = 0; i < cases.Length; i++)
-            {
-                if (testData.Contains($"{cases[i]}"))
-                {
-                    sr.BaseStream.Seek(0, SeekOrigin.Begin);
-                    return cases[i];
                 }
             }
             return string.Empty;

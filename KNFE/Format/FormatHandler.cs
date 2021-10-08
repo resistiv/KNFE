@@ -11,7 +11,8 @@ namespace KNFE.Format
         None,
         Invalid,
         Uuencode,
-        Fallout1Dat
+        Fallout1Dat,
+        BinHex4
     }
 
     /// <summary>
@@ -31,12 +32,20 @@ namespace KNFE.Format
                 AssemblyName = $"{Globals.ProgramName}.Format.Archive.Fallout1DatFormat, {Globals.ProgramName}"
             },
             new FormatDescription()
-            { 
+            {
                 Format = FormatType.Uuencode,
                 FormatName = "uuencode",
                 FormatShortCode = "uue",
                 FormatLongCode = "uuencode",
                 AssemblyName = $"{Globals.ProgramName}.Format.UuencodeFormat, {Globals.ProgramName}"
+            },
+            new FormatDescription()
+            {
+                Format = FormatType.BinHex4,
+                FormatName = "BinHex 4.0",
+                FormatShortCode = "bh4",
+                FormatLongCode = "binhex4.0",
+                AssemblyName = $"{Globals.ProgramName}.Format.BinHex4Format, {Globals.ProgramName}"
             }
         };
 

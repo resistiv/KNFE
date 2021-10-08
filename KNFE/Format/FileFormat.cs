@@ -1,5 +1,4 @@
-﻿using KNFE.Encoding;
-using KNFE.Util;
+﻿using KNFE.Util;
 using System;
 using System.IO;
 

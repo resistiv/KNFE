@@ -10,7 +10,7 @@ namespace KNFE.Util
         /// <summary>
         /// Convert a big endian Int16 into a little endian Int16.
         /// </summary>
-        public static Int16 ConvertToLeShort(short sShort)
+        public static Int16 ToLeShort(short sShort)
         {
             ushort s = (ushort)sShort;
             return (Int16)
@@ -23,7 +23,7 @@ namespace KNFE.Util
         /// <summary>
         /// Convert a big endian Int32 into a little endian Int32.
         /// </summary>
-        public static Int32 ConvertToLeInt(int nInt)
+        public static Int32 ToLeInt(int nInt)
         {
             uint n = (uint)nInt;
             return (Int32)
@@ -38,7 +38,7 @@ namespace KNFE.Util
         /// <summary>
         /// Convert a big endian Int64 into a little endian Int64.
         /// </summary>
-        public static Int64 ConvertToLeLong(long lLong)
+        public static Int64 ToLeLong(long lLong)
         {
             ulong l = (ulong)lLong;
             return (Int64)

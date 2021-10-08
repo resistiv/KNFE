@@ -45,12 +45,12 @@ namespace KNFE
         private static void DebugTests()
         {
             // Test BigEndian Converters
-            /*Logger.LogDebug("BE: 0x1122");
-            Logger.LogDebug($"LE: 0x{Convert.ToString(BigEndian.ConvertToLeShort(0x1122), 16).ToUpper()}");
+            Logger.LogDebug("BE: 0x1122");
+            Logger.LogDebug($"LE: 0x{Convert.ToString(BigEndian.ToLeShort(0x1122), 16).ToUpper()}");
             Logger.LogDebug("BE: 0x11223344");
-            Logger.LogDebug($"LE: 0x{Convert.ToString(BigEndian.ConvertToLeInt(0x11223344), 16).ToUpper()}");
+            Logger.LogDebug($"LE: 0x{Convert.ToString(BigEndian.ToLeInt(0x11223344), 16).ToUpper()}");
             Logger.LogDebug("BE: 0x1122334455667788");
-            Logger.LogDebug($"LE: 0x{Convert.ToString(BigEndian.ConvertToLeLong(0x1122334455667788), 16).ToUpper()}");*/
+            Logger.LogDebug($"LE: 0x{Convert.ToString(BigEndian.ToLeLong(0x1122334455667788), 16).ToUpper()}");
         }
     }
 }

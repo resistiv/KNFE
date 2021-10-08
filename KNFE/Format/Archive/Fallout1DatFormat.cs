@@ -30,7 +30,7 @@ namespace KNFE.Format.Archive
             br = new BinaryReader(inFileStream);
 
             // Directories
-            dirCount = BigEndian.ConvertToLeInt(br.ReadInt32());
+            dirCount = BigEndian.ToLeInt(br.ReadInt32());
             dirEntries = new Fallout1DatDirectoryEntry[dirCount];
 
             // Unknown bytes
@@ -40,14 +40,14 @@ namespace KNFE.Format.Archive
             for (int i = 0; i < dirCount; i++)
             {
                 dirEntries[i] = new Fallout1DatDirectoryEntry();
-                dirEntries[i].dirName = ReadString();
+                dirEntries[i].dirName = Tools.ReadByteString(br);
             }
 
             // Dir content block
             foreach (Fallout1DatDirectoryEntry dir in dirEntries)
             {
                 // Files
-                dir.fileCount = BigEndian.ConvertToLeInt(br.ReadInt32());
+                dir.fileCount = BigEndian.ToLeInt(br.ReadInt32());
                 dir.fileEntries = new Fallout1DatFileEntry[dir.fileCount];
 
                 // Unknown bytes
@@ -59,10 +59,10 @@ namespace KNFE.Format.Archive
                 {
                     dir.fileEntries[i] = new Fallout1DatFileEntry();
 
-                    dir.fileEntries[i].fileName = ReadString();
+                    dir.fileEntries[i].fileName = Tools.ReadByteString(br);
 
                     // Attribute & validation
-                    int compFlags = BigEndian.ConvertToLeInt(br.ReadInt32());
+                    int compFlags = BigEndian.ToLeInt(br.ReadInt32());
                     if (compFlags == FLAG_LZSS)
                         dir.fileEntries[i].compressed = true;
                     else if (compFlags == FLAG_TEXT)
@@ -70,9 +70,9 @@ namespace KNFE.Format.Archive
                     else
                         Program.Quit($"Invalid file attribute received for file '{dir.dirName}\\{dir.fileEntries[i].fileName}', quitting.");
 
-                    dir.fileEntries[i].offset = BigEndian.ConvertToLeInt(br.ReadInt32());
-                    dir.fileEntries[i].originalLength = BigEndian.ConvertToLeInt(br.ReadInt32());
-                    dir.fileEntries[i].compressedLength = BigEndian.ConvertToLeInt(br.ReadInt32());
+                    dir.fileEntries[i].offset = BigEndian.ToLeInt(br.ReadInt32());
+                    dir.fileEntries[i].originalLength = BigEndian.ToLeInt(br.ReadInt32());
+                    dir.fileEntries[i].compressedLength = BigEndian.ToLeInt(br.ReadInt32());
                 }
             }
 
@@ -88,16 +88,6 @@ namespace KNFE.Format.Archive
                         fe.data = new BinaryStream(new MemoryStream(br.ReadBytes(fe.originalLength)));
                 }
             }
-        }
-
-        /// <summary>
-        /// Read a length-prefixed string.
-        /// </summary>
-        private string ReadString()
-        {
-            int stringLength = br.ReadByte();
-            string outStr = System.Text.Encoding.ASCII.GetString(br.ReadBytes(stringLength));
-            return outStr;
         }
 
         public override void ExportData()

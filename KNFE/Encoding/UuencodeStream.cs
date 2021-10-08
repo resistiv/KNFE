@@ -3,7 +3,7 @@
 namespace KNFE.Encoding
 {
     /// <summary>
-    /// Represents a text stream encoded using uuencode.
+    /// Represents a uuencoded stream.
     /// </summary>
     public class UuencodeStream : EncodingStream
     {
@@ -74,6 +74,10 @@ namespace KNFE.Encoding
                 }
             }
 
+            // RELEASE THE HAAAAAANDLE!!!
+            sr.Close();
+
+            decoded.Seek(0, SeekOrigin.Begin);
             return decoded;
         }
 

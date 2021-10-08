@@ -55,7 +55,7 @@ namespace KNFE.Encoding.Compression
             while (!IsLastByte())
             {
                 // Number of bytes we'll read from the next block of data
-                numBytes = BigEndian.ConvertToLeShort(br.ReadInt16());
+                numBytes = BigEndian.ToLeShort(br.ReadInt16());
 
                 // LZSS end of stream
                 if (numBytes == 0)
@@ -134,6 +134,7 @@ namespace KNFE.Encoding.Compression
             // Don't forget to release our file handle
             br.Close();
 
+            decoded.Seek(0, SeekOrigin.Begin);
             return decoded;
         }
 
