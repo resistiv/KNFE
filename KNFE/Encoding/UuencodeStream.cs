@@ -21,11 +21,8 @@ namespace KNFE.Encoding
             sr = new StreamReader(base.Stream);
         }
 
-        public override MemoryStream Decode()
+        public override void Decode(Stream outStream)
         {
-            // Decoded output
-            MemoryStream decoded = new MemoryStream();
-
             string currentLine = "";
             while (!sr.EndOfStream)
             {
@@ -61,15 +58,15 @@ namespace KNFE.Encoding
                     // Decode by remaining length
                     if (lineLength >= 1)
                     {
-                        decoded.WriteByte((byte)(GetSixBits(currentLine[i]) << 2 | GetSixBits(currentLine[i + 1]) >> 4));
+                        outStream.WriteByte((byte)(GetSixBits(currentLine[i]) << 2 | GetSixBits(currentLine[i + 1]) >> 4));
                     }
                     if (lineLength >= 2)
                     {
-                        decoded.WriteByte((byte)(GetSixBits(currentLine[i + 1]) << 4 | GetSixBits(currentLine[i + 2]) >> 2));
+                        outStream.WriteByte((byte)(GetSixBits(currentLine[i + 1]) << 4 | GetSixBits(currentLine[i + 2]) >> 2));
                     }
                     if (lineLength >= 3)
                     {
-                        decoded.WriteByte((byte)(GetSixBits(currentLine[i + 2]) << 6 | GetSixBits(currentLine[i + 3])));
+                        outStream.WriteByte((byte)(GetSixBits(currentLine[i + 2]) << 6 | GetSixBits(currentLine[i + 3])));
                     }
                 }
             }
@@ -77,8 +74,8 @@ namespace KNFE.Encoding
             // RELEASE THE HAAAAAANDLE!!!
             sr.Close();
 
-            decoded.Seek(0, SeekOrigin.Begin);
-            return decoded;
+            outStream.Seek(0, SeekOrigin.Begin);
+            return;
         }
 
         /// <summary>

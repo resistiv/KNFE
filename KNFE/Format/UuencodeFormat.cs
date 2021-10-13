@@ -63,12 +63,24 @@ namespace KNFE.Format
 
         public override void ExportData()
         {
-            MemoryStream file = output.Decode();
+            // MemoryStream file = output.Decode();
             string outputPath = CreateOutputPath();
             string dataOutputPath = $"{outputPath}{outFileName}";
+            FileStream outFile = null;
+            try
+            {
+                outFile = new FileStream(dataOutputPath, FileMode.OpenOrCreate, FileAccess.Write);
+            }
+            catch (Exception e)
+            {
+                Logger.LogException(e);
+                Program.Quit("Quitting.");
+            }
 
             Logger.LogInfo(ToString());
-            WriteFileFromStream(dataOutputPath, file);
+            // WriteFileFromMemory(dataOutputPath, file);
+            output.Decode(outFile);
+            outFile.Close();
             sr.Close();
         }
 

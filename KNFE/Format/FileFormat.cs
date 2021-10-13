@@ -57,7 +57,7 @@ namespace KNFE.Format
         /// <summary>
         /// Writes a file to disk given a path and data in memory.
         /// </summary>
-        protected void WriteFileFromStream(string dataOutPath, MemoryStream data)
+        protected void WriteFileFromMemory(string dataOutPath, MemoryStream data)
         {
             try
             {

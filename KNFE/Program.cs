@@ -14,11 +14,19 @@ namespace KNFE
         /// </summary>
         public static void Main(string[] args)
         {
+            // Output copyright information
             Logger.LogCopyright();
-            DebugTests();
+
+            // Parses all our arguments and creates a structure for it
             RunProperties properties = ArgumentHandler.ResolveArguments(args);
-            FileFormat fmt = FormatHandler.ResolveFormat(properties.Format, properties.FileName);
+
+            // Creates an instance from the properties we got a second ago, sets up preliminary format-specific information
+            FileFormat fmt = FormatHandler.ResolveFormat(properties);
+
+            // Export all data from the above instance; decodes all data from any possible streams and writes it to disk
             fmt.ExportData();
+
+            // Done!
             Logger.LogInfo("Done.");
         }
 
@@ -37,20 +45,6 @@ namespace KNFE
         public static void Quit()
         {
             Environment.Exit(1);
-        }
-
-        /// <summary>
-        /// Runs diagnostic debugging tests.
-        /// </summary>
-        private static void DebugTests()
-        {
-            // Test BigEndian Converters
-            Logger.LogDebug("BE: 0x1122");
-            Logger.LogDebug($"LE: 0x{Convert.ToString(BigEndian.ToLeShort(0x1122), 16).ToUpper()}");
-            Logger.LogDebug("BE: 0x11223344");
-            Logger.LogDebug($"LE: 0x{Convert.ToString(BigEndian.ToLeInt(0x11223344), 16).ToUpper()}");
-            Logger.LogDebug("BE: 0x1122334455667788");
-            Logger.LogDebug($"LE: 0x{Convert.ToString(BigEndian.ToLeLong(0x1122334455667788), 16).ToUpper()}");
         }
     }
 }

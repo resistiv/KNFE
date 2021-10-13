@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KNFE.Util;
+using System;
 using System.Linq;
 
 namespace KNFE.Format
@@ -69,9 +70,10 @@ namespace KNFE.Format
         /// <summary>
         /// Resolves and instantiates a FileFormat object from a FormatType.
         /// </summary>
-        public static FileFormat ResolveFormat(FormatType type, string fileName)
+        //public static FileFormat ResolveFormat(FormatType type, string fileName)
+        public static FileFormat ResolveFormat(RunProperties properties)
         {
-            switch (type)
+            switch (properties.Format)
             {
                 case FormatType.None:
                     Program.Quit("Format not determined, quitting.");
@@ -81,11 +83,11 @@ namespace KNFE.Format
                     break;
                 default:
                     // First, find the FormatDescription in Formats that has a matching FormatType, then save its AssemblyName
-                    FormatDescription fd = Formats.Where(f => f.Format == type).First();
+                    FormatDescription fd = Formats.Where(f => f.Format == properties.Format).First();
                     // Translate that AssemblyName into a Type
                     Type outType = Type.GetType(fd.AssemblyName);
                     // Create an instance of that assembly; casting to FileFormat from object is required to make this work
-                    return (FileFormat)Activator.CreateInstance(outType, new string[] { fd.FormatName, fileName });
+                    return (FileFormat)Activator.CreateInstance(outType, new string[] { fd.FormatName, properties.FileName });
             }
 
             return null;

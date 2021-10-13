@@ -15,8 +15,8 @@ namespace KNFE.Encoding
         }
 
         /// <summary>
-        /// Decodes an encoded stream and saves it to memory.
+        /// Decodes an encoded stream and writes it to an output Stream.
         /// </summary>
-        public abstract MemoryStream Decode();
+        public abstract void Decode(Stream outStream);
     }
 }

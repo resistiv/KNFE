@@ -86,10 +86,12 @@ namespace KNFE.Format
             string outputPath = CreateOutputPath();
 
             // Decode all our data
-            MemoryStream bhDecoded = bhStream.Decode();
+            MemoryStream bhDecoded = new MemoryStream();
+            bhStream.Decode(bhDecoded);
 
             rleStream = new Rle90Stream(bhDecoded);
-            MemoryStream rleDecoded = rleStream.Decode();
+            MemoryStream rleDecoded = new MemoryStream();
+            rleStream.Decode(rleDecoded);
 
             // Read through our final decoded data to validate
             br = new CrcBinaryReader(rleDecoded, new Crc16Ccitt(false));
@@ -114,7 +116,7 @@ namespace KNFE.Format
             // Validate header
             if (header.headerCrc != calcHeaderCrc)
             {
-                Program.Quit($"Calculated CRC did not match CRC in header\n" +
+                Program.Quit($"Calculated CRC did not match CRC in header, quitting.\n" +
                              $"\tCalculated CRC: 0x{Convert.ToString(br.Crc.GetCrc(), 16).ToUpper()}\n" +
                              $"\tHeader CRC: 0x{Convert.ToString(header.headerCrc, 16).ToUpper()}");
             }
@@ -132,7 +134,7 @@ namespace KNFE.Format
             // Validate
             if (header.dataForkCrc != calcDataCrc)
             {
-                Program.Quit($"Calculated CRC did not match CRC in data fork\n" +
+                Program.Quit($"Calculated CRC did not match CRC in data fork, quitting.\n" +
                              $"\tCalculated CRC: 0x{Convert.ToString(br.Crc.GetCrc(), 16).ToUpper()}\n" +
                              $"\tData Fork CRC: 0x{Convert.ToString(header.headerCrc, 16).ToUpper()}");
             }
@@ -150,7 +152,7 @@ namespace KNFE.Format
             // Validate
             if (header.rsrcForkCrc != calcRsrcCrc)
             {
-                Program.Quit($"Calculated CRC did not match CRC in resource fork\n" +
+                Program.Quit($"Calculated CRC did not match CRC in resource fork, quitting.\n" +
                              $"\tCalculated CRC: 0x{Convert.ToString(br.Crc.GetCrc(), 16).ToUpper()}\n" +
                              $"\tResource Fork CRC: 0x{Convert.ToString(header.headerCrc, 16).ToUpper()}");
             }
@@ -161,8 +163,8 @@ namespace KNFE.Format
 
             Logger.LogInfo(ToString());
 
-            WriteFileFromStream(dataForkOut, dataFork);
-            WriteFileFromStream(rsrcForkOut, rsrcFork);
+            WriteFileFromMemory(dataForkOut, dataFork);
+            WriteFileFromMemory(rsrcForkOut, rsrcFork);
 
             sr.Close();
             br.Close();

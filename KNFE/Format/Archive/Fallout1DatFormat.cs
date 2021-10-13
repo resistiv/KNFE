@@ -111,39 +111,54 @@ namespace KNFE.Format.Archive
                 {
                     Logger.LogInfo(dirEntries[i].fileEntries[j].ToString());
 
-                    string dataOutPath = dirOutPath + "\\" + dirEntries[i].fileEntries[j].fileName;
+                    // Path for output file
+                    string dataOutputPath = dirOutPath + "\\" + dirEntries[i].fileEntries[j].fileName;
+
+                    // Initialize our output FileStream
+                    FileStream outFile = null;
+                    try
+                    {
+                        outFile = new FileStream(dataOutputPath, FileMode.OpenOrCreate, FileAccess.Write);
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.LogException(e);
+                        Program.Quit("Quitting.");
+                    }
 
                     // Seek to data and create a MemoryStream
-                    MemoryStream data;
                     br.BaseStream.Seek(dirEntries[i].fileEntries[j].offset, SeekOrigin.Begin);
                     if (dirEntries[i].fileEntries[j].compressed)
                     {
                         // If compressed, we initialize an LZSS stream
-                        data = new MemoryStream(br.ReadBytes(dirEntries[i].fileEntries[j].compressedLength));
-                        dirEntries[i].fileEntries[j].data = new Fallout1LzssStream(data);
+                        dirEntries[i].fileEntries[j].data = new Fallout1LzssStream(br.BaseStream, dirEntries[i].fileEntries[j].compressedLength);
                     }
                     else
                     {
                         // If binary data, initialize binary data stream
-                        data = new MemoryStream(br.ReadBytes(dirEntries[i].fileEntries[j].originalLength));
-                        dirEntries[i].fileEntries[j].data = new BinaryStream(data);
+                        dirEntries[i].fileEntries[j].data = new BinaryStream(br.BaseStream, dirEntries[i].fileEntries[j].originalLength);
                     }
 
-                    data = dirEntries[i].fileEntries[j].data.Decode();
-                    WriteFileFromStream(dataOutPath, data);
+                    // Write file to output
+                    dirEntries[i].fileEntries[j].data.Decode(outFile);
 
-                    // Dispose of resources to keep memory usage low, since the movie files in MASTER.DAT can eat memory like crazy
-                    // Cuts down memory usage from ~650MB to ~250MB at peak
-                    data = null;
+                    // If we have an incorrect output length, the file is likely corrupt; quit to avoid outputting even more corrupt files
+                    if ((int)outFile.Length != dirEntries[i].fileEntries[j].originalLength)
+                    {
+                        Program.Quit($"Resulting length did not match file length, quitting.\n" +
+                             $"\tResulting length: 0x{Convert.ToString(outFile.Length, 16).ToUpper()}\n" +
+                             $"\tCorrect length: 0x{Convert.ToString(dirEntries[i].fileEntries[j].originalLength, 16).ToUpper()}");
+                    }
+                    outFile.Close();
+
+                    // Dispose of resources to keep memory usage low, since big directories can consume memory like nobody's business
+                    // Cuts down memory usage, albeit is a bit hacky
                     dirEntries[i].fileEntries[j].data.Stream = null;
                     dirEntries[i].fileEntries[j] = null;
-                    // While running the garbage collector after every file is computationally harsh, it cuts down on memory usage from ~250MB to ~200MB at peak
-                    GC.Collect();
                 }
 
                 // Dispose of resources
                 dirEntries[i] = null;
-                GC.Collect();
             }
 
             br.Close();

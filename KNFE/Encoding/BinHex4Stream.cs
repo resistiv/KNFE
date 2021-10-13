@@ -30,11 +30,8 @@ namespace KNFE.Encoding
             br = new BinaryReader(base.Stream);
         }
 
-        public override MemoryStream Decode()
+        public override void Decode(Stream outStream)
         {
-            // Decoded output
-            MemoryStream decoded = new MemoryStream();
-
             // Build table
             BuildSixBitTable();
 
@@ -78,7 +75,7 @@ namespace KNFE.Encoding
                         // Decrement bits out of buffer
                         bitsLeft -= 8;
                         // Write decoded byte to output
-                        decoded.WriteByte((byte)(bitBuffer >> bitsLeft));
+                        outStream.WriteByte((byte)(bitBuffer >> bitsLeft));
                     }
                 }
             }
@@ -86,8 +83,8 @@ namespace KNFE.Encoding
             // RELEASE!! THAT!! FILE!! HANDLE!!
             br.Close();
 
-            decoded.Seek(0, SeekOrigin.Begin);
-            return decoded;
+            outStream.Seek(0, SeekOrigin.Begin);
+            return;
         }
 
         /// <summary>

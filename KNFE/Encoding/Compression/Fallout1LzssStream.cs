@@ -10,6 +10,9 @@ namespace KNFE.Encoding.Compression
     {
         private readonly BinaryReader br;
 
+        // Final position of the stream
+        private readonly long streamEnd;
+
         // Constants
         private const int DICT_SIZE = 4096;
         private const int MIN_MATCH = 3;
@@ -28,13 +31,14 @@ namespace KNFE.Encoding.Compression
         // Current length of encoded match
         private short matchLen;
 
-        public Fallout1LzssStream(MemoryStream stream)
+        public Fallout1LzssStream(Stream stream, int streamLength)
             : base(stream)
         {
             br = new BinaryReader(stream);
+            this.streamEnd = streamLength + base.Stream.Position;
         }
 
-        public override MemoryStream Decode()
+        public override void Decode(Stream outStream)
         {
             // Adapted from the pseudocode implementation of Shadowbird's algorithm
             // https://falloutmods.fandom.com/wiki/DAT_file_format#Fallout_1_LZSS_uncompression_algorithm
@@ -49,7 +53,6 @@ namespace KNFE.Encoding.Compression
             // Of importantance is that this stream is big endian, and thus needs conversion to little endian for number values larger than a byte
             // Literal runs of bytes do not need to be converted, as they are literal
 
-            MemoryStream decoded = new MemoryStream();
             dict = new byte[DICT_SIZE];
 
             while (!IsLastByte())
@@ -68,8 +71,13 @@ namespace KNFE.Encoding.Compression
                     if (numBytes < 0)
                     {
                         numBytes *= -1;
+                        // Some files attempt to overread the boundary of their lengths; if we find such a case, trim the literal byte read length to however many bytes remain
+                        if (numBytes + base.Stream.Position > streamEnd)
+                        {
+                            numBytes = (short)(streamEnd - base.Stream.Position);
+                        }
                         byte[] data = br.ReadBytes(numBytes);
-                        decoded.Write(data, 0, data.Length);
+                        outStream.Write(data, 0, data.Length);
                         continue;
                     }
                     // Else, our read will be LZSS encoded
@@ -92,18 +100,18 @@ namespace KNFE.Encoding.Compression
                             {
                                 byte b = br.ReadByte();
                                 bytesRead++;
-                                decoded.WriteByte(b);
+                                outStream.WriteByte(b);
                                 WriteToDictionary(b);
-                                if (bytesRead >= numBytes) break;
+                                if (bytesRead >= numBytes || IsLastByte()) break;
                             }
                             // If bit is NOT set, we have an encoded run, reference dictionary
                             else
                             {
-                                if (bytesRead >= numBytes) break;
+                                if (bytesRead >= numBytes || IsLastByte()) break;
                                 // Read the offset of our encoded data in the dictionary
                                 dOfs = br.ReadByte();
                                 bytesRead++;
-                                if (bytesRead >= numBytes) break;
+                                if (bytesRead >= numBytes || IsLastByte()) break;
                                 // Read how long the match is in bytes
                                 matchLen = br.ReadByte();
                                 bytesRead++;
@@ -116,7 +124,7 @@ namespace KNFE.Encoding.Compression
                                 for (int j = 0; j < matchLen + MIN_MATCH; j++)
                                 {
                                     byte b = ReadDictionary();
-                                    decoded.WriteByte(b);
+                                    outStream.WriteByte(b);
                                     WriteToDictionary(b);
                                 }
                             }
@@ -132,10 +140,10 @@ namespace KNFE.Encoding.Compression
             }
 
             // Don't forget to release our file handle
-            br.Close();
+            // br.Close();
 
-            decoded.Seek(0, SeekOrigin.Begin);
-            return decoded;
+            outStream.Seek(0, SeekOrigin.Begin);
+            return;
         }
 
         /// <summary>
@@ -179,7 +187,7 @@ namespace KNFE.Encoding.Compression
         /// </summary>
         private bool IsLastByte()
         {
-            return br.BaseStream.Position == br.BaseStream.Length;
+            return br.BaseStream.Position == streamEnd;
         }
     }
 }

@@ -27,10 +27,8 @@ namespace KNFE.Encoding.Compression
             br = new BinaryReader(base.Stream);
         }
 
-        public override MemoryStream Decode()
+        public override void Decode(Stream outStream)
         {
-            MemoryStream decoded = new MemoryStream();
-
             // Iterate through byte stream
             while (!IsLastByte())
             {
@@ -46,7 +44,7 @@ namespace KNFE.Encoding.Compression
                     // If the run length is zero, the run is a literal 0x90
                     if (runLength == LITERAL_BYTE)
                     {
-                        decoded.WriteByte(MARKER_BYTE);
+                        outStream.WriteByte(MARKER_BYTE);
                         lastByte = MARKER_BYTE;
                     }
                     else
@@ -55,14 +53,14 @@ namespace KNFE.Encoding.Compression
                         // We decrement from the runLength first because we've already written one of the bytes from the run as a literal; that's why we have a lastByte value in the first place!
                         while (--runLength > 0)
                         {
-                            decoded.WriteByte(lastByte);
+                            outStream.WriteByte(lastByte);
                         }
                     }
                 }
                 // Literal byte
                 else
                 {
-                    decoded.WriteByte(currentByte);
+                    outStream.WriteByte(currentByte);
                     lastByte = currentByte;
                 }
             }
@@ -70,8 +68,8 @@ namespace KNFE.Encoding.Compression
             // Release that file handle!!!
             br.Close();
 
-            decoded.Seek(0, SeekOrigin.Begin);
-            return decoded;
+            outStream.Seek(0, SeekOrigin.Begin);
+            return;
         }
 
         /// <summary>
