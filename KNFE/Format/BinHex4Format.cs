@@ -93,6 +93,9 @@ namespace KNFE.Format
             MemoryStream rleDecoded = new MemoryStream();
             rleStream.Decode(rleDecoded);
 
+            // Dispose of this stream since we no longer need it
+            bhDecoded.Close();
+
             // Read through our final decoded data to validate
             br = new CrcBinaryReader(rleDecoded, new Crc16Ccitt(false));
             header = new BinHex4Header();

@@ -16,6 +16,9 @@ namespace KNFE.Checksum.Reader
             this.Crc = Crc;
         }
 
+        /// <summary>
+        /// Reads and returns a byte while calculating it into the current CRC.
+        /// </summary>
         public override byte ReadByte()
         {
             byte b = base.ReadByte();
@@ -23,6 +26,9 @@ namespace KNFE.Checksum.Reader
             return b;
         }
 
+        /// <summary>
+        /// Reads and returns an array of bytes of a given length while calculating it into the current CRC.
+        /// </summary>
         public override byte[] ReadBytes(int count)
         {
             byte[] bs = base.ReadBytes(count);
@@ -33,6 +39,9 @@ namespace KNFE.Checksum.Reader
             return bs;
         }
 
+        /// <summary>
+        /// Reads and returns a 16-bit integer while calculating it into the current CRC.
+        /// </summary>
         public override short ReadInt16()
         {
             short s = base.ReadInt16();
@@ -44,6 +53,9 @@ namespace KNFE.Checksum.Reader
             return s;
         }
 
+        /// <summary>
+        /// Reads and returns a 32-bit integer while calculating it into the current CRC.
+        /// </summary>
         public override int ReadInt32()
         {
             int i = base.ReadInt32();

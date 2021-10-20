@@ -52,12 +52,13 @@ namespace KNFE.Format
             }
 
             // Confirm perm range
-            if (Convert.ToInt32(headerInfo[1]) < 0 || Convert.ToInt32(headerInfo[1]) > 777)
+            int permNum = Convert.ToInt32(headerInfo[1], 8);
+            if (permNum < 0 || permNum > 511) // 511 is equivalent to 0777
             {
                 Program.Quit($"Malformed {base.formatName} permissions, quitting.");
             }
 
-            permissions = ConvertUnixOctalPerms(headerInfo[1]);
+            permissions = ConvertUnixOctalPerms(permNum);
             outFileName = headerInfo[2];
         }
 
@@ -87,34 +88,36 @@ namespace KNFE.Format
         /// <summary>
         /// Converts an octal Unix file permission into a string of ten permission flags.
         /// </summary>
-        private string ConvertUnixOctalPerms(string octal)
+        private string ConvertUnixOctalPerms(int perms)
         {
             string outString = "-";
-            foreach (char c in octal)
+            // Cycle through the lower 9 bits of our perm string
+            for (int i = 8; i >= 0; i--)
             {
-                // Read permission is third bit set; e.g. 0b100
-                if ((Convert.ToInt32($"{c}", 8) & 0x4) >> 2 != 0)
+                // Test which bit we're on
+                switch (i % 3)
                 {
-                    outString += "r";
+                    // 0x4 or 0b100
+                    case 2:
+                        if ((perms & (int)Math.Pow(2, i)) != 0)
+                            outString += "r";
+                        else outString += "-";
+                        break;
+                    // 0x2 or 0b010
+                    case 1:
+                        if ((perms & (int)Math.Pow(2, i)) != 0)
+                            outString += "w";
+                        else outString += "-";
+                        break;
+                    // 0x1 or 0b001
+                    case 0:
+                        if ((perms & (int)Math.Pow(2, i)) != 0)
+                            outString += "x";
+                        else outString += "-";
+                        break;
+                    default:
+                        break;
                 }
-                else
-                    outString += "-";
-
-                // Write permission is second bit set; e.g. 0b010
-                if ((Convert.ToInt32($"{c}", 8) & 0x2) >> 1 != 0)
-                {
-                    outString += "w";
-                }
-                else
-                    outString += "-";
-
-                // Execute permission is first bit set; e.g. 0b001
-                if ((Convert.ToInt32($"{c}", 8) & 0x1) != 0)
-                {
-                    outString += "x";
-                }
-                else
-                    outString += "-";
             }
 
             return outString;
@@ -150,7 +153,7 @@ namespace KNFE.Format
         {
             return base.ToString() +
                    $"\tPermissions: {permissions}\n" +
-                   $"\tOutput file name: {outFileName}";
+                   $"\tOutput file name: {outFileName}\n";
         }
     }
 }

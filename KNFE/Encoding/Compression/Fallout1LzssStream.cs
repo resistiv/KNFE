@@ -44,7 +44,7 @@ namespace KNFE.Encoding.Compression
             // https://falloutmods.fandom.com/wiki/DAT_file_format#Fallout_1_LZSS_uncompression_algorithm
 
             // Referenced Mr.Stalin's DAT Explorer II for bug-fixing
-            // GitHub repo is outdated, used dotPeek on updated DLL
+            // GitHub repo is outdated, used dotPeek on updated DatLab DLL
             // https://www.nma-fallout.com/resources/fallout-dat-explorer-ii.121/
 
             // While I did not reference this code, here's an extra implementation utilized by the FIFE engine
@@ -138,9 +138,6 @@ namespace KNFE.Encoding.Compression
                     }
                 }
             }
-
-            // Don't forget to release our file handle
-            // br.Close();
 
             outStream.Seek(0, SeekOrigin.Begin);
             return;

@@ -79,8 +79,7 @@ namespace KNFE.Encoding
                     }
                 }
             }
-
-            // RELEASE!! THAT!! FILE!! HANDLE!!
+            // Release file handle
             br.Close();
 
             outStream.Seek(0, SeekOrigin.Begin);

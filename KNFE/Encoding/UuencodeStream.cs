@@ -15,7 +15,7 @@ namespace KNFE.Encoding
         // Text-based encoding, so we utilize a StreamReader over BinaryReader
         private readonly StreamReader sr;
 
-        public UuencodeStream(FileStream stream)
+        public UuencodeStream(Stream stream)
             : base(stream)
         {
             sr = new StreamReader(base.Stream);
