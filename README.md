@@ -24,7 +24,7 @@ An earlier version of KNFE exists, but it was poorly structured and not designed
 knfe -i [file path] -t [short code | long code]
 ```
 
-## Prequisites
+## Prerequisites
 This project makes use of silkfire's <a href="https://github.com/silkfire/Pastel">Pastel</a> package.
 ```console
 nuget install Pastel -Version 2.1.0
