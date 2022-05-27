@@ -1,6 +1,6 @@
-#v2 is currently under construction.
+# v2 is currently under construction.
 
-#Roadmap
+# Roadmap
 - [X] Recreate KNFE's core functions as a library (KNFE.Core.dll)
 - [X] Basic UI frontend
 - [ ] Basic CLI
