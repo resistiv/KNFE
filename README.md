@@ -1,11 +1,13 @@
 # v2 is currently under construction.
-
-# Roadmap
+## Roadmap
 - [X] Recreate KNFE's core functions as a library (KNFE.Core.dll)
 - [X] Basic UI frontend
 - [ ] Basic CLI
-- [ ] File format identification based on file data (eventually remove FSF)
-- [ ] Expand EncodingStreams and derived classes to derive from Streams (replicate GZipStream behaviour)
+- [ ] Decide on a license (GNU GPLv3?)
+- [ ] File format identification based on file data (eventually remove FSF) (optional for v2)
+- [ ] Expand EncodingStreams and derived classes to derive from Streams (replicate GZipStream behaviour) (optional for v2)
+- [ ] Implement icons for UI tree (optional for v2)
+- [ ] Unify EncodingStreams for related encodings (LZSS variants, preset class) (optional for v2)
 
 # KNFE (K.N.'s File Extractor)
 KNFE (pronounced "knife") is a C#-based GUI & CLI program for extracting and decoding various file formats.
