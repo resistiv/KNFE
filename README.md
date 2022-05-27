@@ -3,7 +3,7 @@
 - [X] Recreate KNFE's core functions as a library (KNFE.Core.dll)
 - [X] Basic UI frontend
 - [ ] Basic CLI
-- [ ] Decide on a license (GNU GPLv3?)
+- [X] Decide on a license (GNU GPLv3?)
 - [ ] File format identification based on file data (eventually remove FSF) (optional for v2)
 - [ ] Expand EncodingStreams and derived classes to derive from Streams (replicate GZipStream behaviour) (optional for v2)
 - [ ] Implement icons for UI tree (optional for v2)

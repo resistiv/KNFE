@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("KNFE.Helper")]
-[assembly: AssemblyDescription("A helper assembly for the KNFE.UI & KNFE.CLI interfaces for KNFE.Core.\nhttps://github.com/resistiv/KNFE")]
+[assembly: AssemblyDescription("A helper assembly for the KNFE.UI & KNFE.CLI interfaces for KNFE.Core.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("KNFE")]

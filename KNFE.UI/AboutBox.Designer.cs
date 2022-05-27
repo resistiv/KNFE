@@ -135,7 +135,6 @@
             this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxDescription.Size = new System.Drawing.Size(271, 126);
             this.textBoxDescription.TabIndex = 23;
-            this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "Description";
             // 
             // okButton

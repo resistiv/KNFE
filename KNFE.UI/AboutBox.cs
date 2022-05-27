@@ -10,15 +10,12 @@ namespace KNFE.UI
         {
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            //this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            this.labelProductName.Text = KNFE.Helper.Globals.ProgramName;
             this.labelVersion.Text = KNFE.Helper.Globals.Version;
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+            this.labelCopyright.Text = KNFE.Helper.Globals.ProgramCopyright;
+            this.labelCompanyName.Text = KNFE.Helper.Globals.ProgramAuthor;
+            this.textBoxDescription.Text = $"{AssemblyDescription}{Environment.NewLine}{Environment.NewLine}{KNFE.Helper.Globals.ProgramRepo}{Environment.NewLine}{Environment.NewLine}{KNFE.Helper.Globals.ProgramLicense}";
         }
-
-        #region Assembly Attribute Accessors
 
         public string AssemblyTitle
         {
@@ -37,14 +34,6 @@ namespace KNFE.UI
             }
         }
 
-        public string AssemblyVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
-
         public string AssemblyDescription
         {
             get
@@ -57,45 +46,5 @@ namespace KNFE.UI
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
         }
-
-        public string AssemblyProduct
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyProductAttribute)attributes[0]).Product;
-            }
-        }
-
-        public string AssemblyCopyright
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
-            }
-        }
-
-        public string AssemblyCompany
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyCompanyAttribute)attributes[0]).Company;
-            }
-        }
-        #endregion
     }
 }

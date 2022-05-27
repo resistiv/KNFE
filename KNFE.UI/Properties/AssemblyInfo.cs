@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("KNFE.UI")]
-[assembly: AssemblyDescription("A frontend for the KNFE.Core file-handling library.\nhttps://github.com/resistiv/KNFE")]
+[assembly: AssemblyDescription("A frontend for the KNFE.Core file-handling library.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("KNFE")]
