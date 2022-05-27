@@ -1,7 +1,6 @@
-_reference/
-_test/
-packages/
-.git/
 .vs/
-KNFE/bin/
-KNFE/obj/
+packages/
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/

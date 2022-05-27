@@ -1,8 +1,8 @@
 # KNFE (K.N.'s File Extractor)
-KNFE (pronounced "knife") is a C#-based CLI program for extracting and decoding various file formats.
+KNFE (pronounced "knife") is a C#-based GUI & CLI program for extracting and decoding various file formats.
 
 The current focus for KNFE falls upon the following types of file formats:
-* File formats without modern implementation
+* File formats without modern implementations
 * Proprietary video game file formats
 * Generally old & obscure file formats
 
@@ -24,11 +24,4 @@ An earlier version of KNFE exists, but it was poorly structured and not designed
 knfe -i [file path] -t [short code | long code]
 ```
 
-## Prerequisites
-This project makes use of silkfire's <a href="https://github.com/silkfire/Pastel">Pastel</a> package.
-```console
-nuget install Pastel -Version 2.1.0
-```
-
 ## License
-This project is licensed under the [MIT License](LICENSE).
