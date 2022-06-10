@@ -14,11 +14,20 @@ namespace KNFE.Helper
         /// </summary>
         /// <param name="path">The directory to write the file to.</param>
         /// <param name="entry">The file FormatEntry to extract.</param>
-        public static void ExtractFile(string path, FormatEntry entry)
+        public static void ExtractFile(string path, FormatEntry entry, bool cli = false, bool verbose = false)
         {
             if (entry.IsDirectory)
                 throw new InvalidOperationException("Attempted to extract a file from a non-file FormatEntry.");
             
+            // CLI output
+            if (cli)
+            {
+                if (verbose)
+                    Log.Info(entry.ToFields());
+                else
+                    Log.Extract(entry.GetFullPath());
+            }
+
             // Attempt to create our output FileStream
             string outPath = $"{path}\\{entry.ItemPath}";
             FileStream fs = new FileStream(outPath, FileMode.OpenOrCreate, FileAccess.Write);
@@ -37,7 +46,7 @@ namespace KNFE.Helper
         /// </summary>
         /// <param name="path">The directory to write the directory's children to.</param>
         /// <param name="entry">The directory FormatEntry to extract children from.</param>
-        public static void ExtractDirectory(string path, FormatEntry entry)
+        public static void ExtractDirectory(string path, FormatEntry entry, bool cli = true, bool verbose = false)
         {
             if (!entry.IsDirectory)
                 throw new InvalidOperationException("Attempted to extract a directory from a non-directory FormatEntry.");
@@ -51,9 +60,9 @@ namespace KNFE.Helper
             foreach (FormatEntry fe in entry.Children)
             {
                 if (fe.IsDirectory)
-                    ExtractDirectory(dirPath, fe);
+                    ExtractDirectory(dirPath, fe, cli, verbose);
                 else
-                    ExtractFile(dirPath, fe);
+                    ExtractFile(dirPath, fe, cli, verbose);
             }
         }
     }

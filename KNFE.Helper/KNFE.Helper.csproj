@@ -46,8 +46,8 @@
     <Compile Include="ExtractHandler.cs" />
     <Compile Include="FormatDescription.cs" />
     <Compile Include="FormatHandler.cs" />
-    <Compile Include="FormatResolver.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +58,9 @@
       <Project>{96f85b8f-fb43-4c88-b2cd-5a0f9b270c6f}</Project>
       <Name>KNFE.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

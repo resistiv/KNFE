@@ -85,7 +85,7 @@ namespace KNFE.UI
                     // Attempt to create FileFormat instance, catch open error
                     try
                     {
-                        fileFormat = (FileFormat)Activator.CreateInstance(fd.AssemblyType, new string[] { ofd.FileName });
+                        fileFormat = FormatHandler.InstantiateFormat(fd, ofd.FileName);
                     }
                     catch (Exception ex)
                     {
