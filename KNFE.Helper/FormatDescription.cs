@@ -4,12 +4,12 @@ using KNFE.Core.Format;
 namespace KNFE.Helper
 {
     /// <summary>
-    /// Represents a set of identifiers by which a <see cref="FileFormat"/> can be resolved.
+    /// Represents a set of identifiers by which a <see cref="Format"/> can be resolved.
     /// </summary>
     public class FormatDescription
     {
         /// <summary>
-        /// The name of the <see cref="FileFormat"/> this <see cref="FormatDescription"/> represents.
+        /// The name of the <see cref="Format"/> this <see cref="FormatDescription"/> represents.
         /// </summary>
         public string Name { get; set; }
 

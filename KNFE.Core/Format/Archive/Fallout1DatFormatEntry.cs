@@ -9,7 +9,7 @@ namespace KNFE.Core.Format.Archive
     /// <summary>
     /// Provides storage for a Fallout 1 *.DAT item entry and its information.
     /// </summary>
-    public class Fallout1DatEntry : FormatEntry
+    public class Fallout1DatFormatEntry : FormatEntry
     {
         // Internal members
         internal bool _isCompressed = false;
@@ -18,46 +18,24 @@ namespace KNFE.Core.Format.Archive
         internal int _compressedLength = -1;
         internal int _fileCount = -1;
 
-        // Properties
         /// <summary>
-        /// Returns <c>true</c> when this <see cref="Fallout1DatEntry"/> is LZSS-compressed and <c>false</c> when it is non-compressed.
-        /// </summary>
-        public bool IsCompressed { get { return _isCompressed; } }
-        /// <summary>
-        /// Returns the offset of this <see cref="Fallout1DatEntry"/>'s data within its source Stream.
-        /// </summary>
-        public int Offset { get { return _offset; } }
-        /// <summary>
-        /// Returns the non-compressed length of the data of this <see cref="Fallout1DatEntry"/>.
-        /// </summary>
-        public int OriginalLength { get { return _offset; } }
-        /// <summary>
-        /// Returns the compressed length of the data of this <see cref="Fallout1DatEntry"/>.
-        /// </summary>
-        public int CompressedLength { get { return _compressedLength; } }
-        /// <summary>
-        /// Returns the number of child <see cref="Fallout1DatEntry"/>s within this <see cref="Fallout1DatEntry"/>.
-        /// </summary>
-        public int FileCount { get { return _fileCount; } }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Fallout1DatEntry"/> class as a directory.
+        /// Initializes a new instance of the <see cref="Fallout1DatFormatEntry"/> class as a directory.
         /// </summary>
         /// <param name="path">A relative path to the virtual directory from the root of the <see cref="Fallout1DatFormat"/>.</param>
-        public Fallout1DatEntry(string path) : base(path) { }
+        public Fallout1DatFormatEntry(string path) : base(path) { }
 
         /// <summary>
-        /// Initializes a new of instance of the <see cref="Fallout1DatEntry"/> class as a file.
+        /// Initializes a new of instance of the <see cref="Fallout1DatFormatEntry"/> class as a file.
         /// </summary>
         /// <param name="path">A relative path to the virtual file from the root of the <see cref="Fallout1DatFormat"/>.</param>
         /// <param name="source">The corresponding <see cref="Stream"/> where the virtual file is located.</param>
-        public Fallout1DatEntry(string path, Stream source) : base(path, source) { }
+        public Fallout1DatFormatEntry(string path, Stream source) : base(path, source) { }
 
         public override EntryProperties Extract(Stream outStream)
         {
             // Check for invalid call
             if (IsDirectory)
-                throw new InvalidOperationException("Attempted to extract data from a directory Fallout1DatEntry.");
+                throw new InvalidOperationException("Attempted to extract data from a directory Fallout1DatFormatEntry.");
 
             // Seek to source data offset and extract based on compression method
             _source.Seek(_offset, SeekOrigin.Begin);
@@ -98,8 +76,28 @@ namespace KNFE.Core.Format.Archive
                     dict.Add("Compressed Size", _compressedLength.ToString());
             }
 
-
             return dict;
         }
+
+        /// <summary>
+        /// Returns <c>true</c> when this <see cref="Fallout1DatFormatEntry"/> is LZSS-compressed and <c>false</c> when it is non-compressed.
+        /// </summary>
+        public bool IsCompressed { get { return _isCompressed; } }
+        /// <summary>
+        /// Returns the offset of this <see cref="Fallout1DatFormatEntry"/>'s data within its source Stream.
+        /// </summary>
+        public int Offset { get { return _offset; } }
+        /// <summary>
+        /// Returns the non-compressed length of the data of this <see cref="Fallout1DatFormatEntry"/>.
+        /// </summary>
+        public int OriginalLength { get { return _offset; } }
+        /// <summary>
+        /// Returns the compressed length of the data of this <see cref="Fallout1DatFormatEntry"/>.
+        /// </summary>
+        public int CompressedLength { get { return _compressedLength; } }
+        /// <summary>
+        /// Returns the number of child <see cref="Fallout1DatFormatEntry"/>s within this <see cref="Fallout1DatFormatEntry"/>.
+        /// </summary>
+        public int FileCount { get { return _fileCount; } }
     }
 }

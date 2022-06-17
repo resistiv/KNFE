@@ -6,7 +6,7 @@ namespace KNFE.Core.Format
     /// <summary>
     /// Represents a generic file format. This is an abstract class.
     /// </summary>
-    public abstract class FileFormat
+    public abstract class Format
     {
         // Public members
         public readonly Stream InFileStream;
@@ -22,10 +22,10 @@ namespace KNFE.Core.Format
         internal readonly string FormatName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileFormat"/> class from a file name.
+        /// Initializes a new instance of the <see cref="Format"/> class from a file name.
         /// </summary>
-        /// <param name="fileName">The name of the file to load a <see cref="FileFormat"/> from.</param>
-        public FileFormat(string formatName, string fileName)
+        /// <param name="fileName">The name of the file to load a <see cref="Format"/> from.</param>
+        public Format(string formatName, string fileName)
         {
             // Check if our file exists
             if (!File.Exists(fileName))
@@ -39,7 +39,7 @@ namespace KNFE.Core.Format
         }
 
         /// <summary>
-        /// Constructs a <see cref="Dictionary{TKey, TValue}"/> of this <see cref="FileFormat"/>'s information in a human-readable format.
+        /// Constructs a <see cref="Dictionary{TKey, TValue}"/> of this <see cref="Format"/>'s information in a human-readable format.
         /// </summary>
         /// <returns>A <see cref="Dictionary{TKey, TValue}"/> containing a human-readable set of file properties and information.</returns>
         public virtual Dictionary<string, string> ToFields()
@@ -53,7 +53,7 @@ namespace KNFE.Core.Format
         }
 
         /// <summary>
-        /// Closes this <see cref="FileFormat"/> and all associated <see cref="Stream"/>s and Readers.
+        /// Closes this <see cref="Format"/> and all associated <see cref="Stream"/>s and Readers.
         /// </summary>
         public virtual void Close()
         {

@@ -25,10 +25,10 @@ namespace KNFE.Helper
             Console.WriteLine($"\nGeneral Arguments:\n" +
                               $"  -h | --help\t\tDisplay a help message (hey, you're here!)\n" +
                               $"  -i | --input\t\tInput file path\n" +
-                              $"  -f | --format\t\tInput file format\n\n" +
+                              $"  -f | --format\t\tInput file format\n" +
                               $"  -o | --output\t\tOutput file path\n" +
-                              $"  -v | --verbose\t\tEnable verbose output\n" +
-                              $"Supported Formats:");
+                              $"  -v | --verbose\tEnable verbose output\n" +
+                              $"\nSupported Formats:");
             foreach (FormatDescription fd in FormatHandler.Formats)
             {
                 Console.WriteLine($"  {fd.Identifier}\t\t{fd.Name}");

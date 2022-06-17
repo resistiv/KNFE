@@ -28,7 +28,7 @@
         /// <summary>
         /// Resets a CRC to its base value.
         /// </summary>
-        public void ResetCrc() => CalcCrc = BaseCrc;
+        public void ResetCrc() { CalcCrc = BaseCrc; }
 
         /// <summary>
         /// Updates a CRC with 1 byte of data.

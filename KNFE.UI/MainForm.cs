@@ -9,7 +9,7 @@ namespace KNFE.UI
 {
     public partial class MainForm : Form
     {
-        private FileFormat fileFormat = null;
+        private Format fileFormat = null;
         private EntryTreeNode selNode = null;
 
         public MainForm()
@@ -180,7 +180,7 @@ namespace KNFE.UI
         }
 
         /// <summary>
-        /// Closes the current <see cref="FileFormat"/>.
+        /// Closes the current <see cref="Format"/>.
         /// </summary>
         private void CloseFormat()
         {

@@ -3,15 +3,15 @@
     /// <summary>
     /// Stores and manages a CCITT implementation of a 16-bit CRC.
     /// </summary>
-    public class Crc16Xmodem : CyclicRedundancyCheck
+    public class Crc16Ccitt : CyclicRedundancyCheck
     {
         // Properties
         public new ushort Crc { get { return (ushort)(CalcCrc & ushort.MaxValue); } }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Crc16Xmodem"/> class.
+        /// Initializes a new instance of the <see cref="Crc16Ccitt"/> class.
         /// </summary>
-        public Crc16Xmodem() : base(0x1021) { }
+        public Crc16Ccitt() : base(0x1021) { }
 
         public override void UpdateCrc(byte b)
         {

@@ -16,7 +16,7 @@ namespace KNFE.CLI
             ArgHandler.ParseArgs(args);
 
             // Try to instantiate our FileFormat
-            FileFormat format = null;
+            Format format = null;
             try
             {
                 format = FormatHandler.InstantiateFormat(ArgHandler.Format, ArgHandler.InputFile);

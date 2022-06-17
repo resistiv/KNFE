@@ -7,12 +7,12 @@ using KNFE.Core.Format;
 namespace KNFE.Helper
 {
     /// <summary>
-    /// Provides utilities for resolving <see cref="FileFormat"/>s.
+    /// Provides utilities for resolving <see cref="Format"/>s.
     /// </summary>
     public static class FormatHandler
     {
         /// <summary>
-        /// A list of all available, resolvable <see cref="FileFormat"/>s.
+        /// A list of all available, resolvable <see cref="Format"/>s.
         /// </summary>
         public static readonly FormatDescription[] Formats =
         {
@@ -22,6 +22,13 @@ namespace KNFE.Helper
                 Extensions = new string[] {"dat"},
                 Identifier = "fallout",
                 AssemblyType = typeof(KNFE.Core.Format.Archive.Fallout1DatFormat)
+            },
+            new FormatDescription()
+            {
+                Name = "uuencode",
+                Extensions = new string[] {"uu", "uue"},
+                Identifier = "uuencode",
+                AssemblyType = typeof(KNFE.Core.Format.UuFormat)
             }
         };
 
@@ -60,16 +67,16 @@ namespace KNFE.Helper
         }
 
         /// <summary>
-        /// Creates an instance of a <see cref="FileFormat"/> from a <see cref="FormatDescription"/>.
+        /// Creates an instance of a <see cref="Format"/> from a <see cref="FormatDescription"/>.
         /// </summary>
-        /// <param name="format">The <see cref="FormatDescription"/> to use when instantiating the new <see cref="FileFormat"/>.</param>
-        /// <param name="fileName">The input file path of the new <see cref="FileFormat"/>.</param>
+        /// <param name="format">The <see cref="FormatDescription"/> to use when instantiating the new <see cref="Format"/>.</param>
+        /// <param name="fileName">The input file path of the new <see cref="Format"/>.</param>
         /// <returns></returns>
-        public static FileFormat InstantiateFormat(FormatDescription format, string fileName)
+        public static Format InstantiateFormat(FormatDescription format, string fileName)
         {
-            FileFormat outFormat = null;
+            Format outFormat = null;
 
-            outFormat = (FileFormat)Activator.CreateInstance(format.AssemblyType, new string[] { fileName });
+            outFormat = (Format)Activator.CreateInstance(format.AssemblyType, new string[] { fileName });
 
             return outFormat;
         }

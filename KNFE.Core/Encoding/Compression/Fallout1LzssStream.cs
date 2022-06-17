@@ -40,6 +40,7 @@ namespace KNFE.Core.Encoding.Compression
         {
             // Adapted from the pseudocode implementation of Shadowbird's algorithm
             // https://falloutmods.fandom.com/wiki/DAT_file_format#Fallout_1_LZSS_uncompression_algorithm
+            // https://www.nma-fallout.com/threads/fallout-dat-files.160366/
 
             // Referenced Mr.Stalin's DAT Explorer II for bug-fixing
             // GitHub repo is outdated, used dotPeek on updated DatLab DLL

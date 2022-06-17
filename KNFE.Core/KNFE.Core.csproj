@@ -45,8 +45,8 @@
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -58,14 +58,17 @@
   <ItemGroup>
     <Compile Include="Checksum\CyclicRedundancyCheck.cs" />
     <Compile Include="Checksum\Crc16Arc.cs" />
-    <Compile Include="Checksum\Crc16Xmodem.cs" />
+    <Compile Include="Checksum\Crc16Ccitt.cs" />
     <Compile Include="Encoding\Compression\Fallout1LzssStream.cs" />
     <Compile Include="Encoding\EncodingStream.cs" />
-    <Compile Include="Format\Archive\Fallout1DatEntry.cs" />
+    <Compile Include="Encoding\UuStream.cs" />
+    <Compile Include="Format\Archive\Fallout1DatFormatEntry.cs" />
     <Compile Include="Format\Archive\Fallout1DatFormat.cs" />
     <Compile Include="Format\EntryProperties.cs" />
     <Compile Include="Format\FormatEntry.cs" />
-    <Compile Include="Format\FileFormat.cs" />
+    <Compile Include="Format\Format.cs" />
+    <Compile Include="Format\UuFormatEntry.cs" />
+    <Compile Include="Format\UuFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader\BitReader.cs" />
     <Compile Include="Reader\CrcBinaryReader.cs" />

@@ -25,7 +25,7 @@ namespace KNFE.Core.Format
         /// <summary>
         /// Initializes a new instance of the <see cref="FormatEntry"/> class as a directory.
         /// </summary>
-        /// <param name="path">A relative path to the virtual directory from the root of the corresponding <see cref="FileFormat"/>.</param>
+        /// <param name="path">A relative path to the virtual directory from the root of the corresponding <see cref="Format"/>.</param>
         public FormatEntry(string path)
         {
             ItemPath = path;
@@ -37,7 +37,7 @@ namespace KNFE.Core.Format
         /// <summary>
         /// Initializes a new instance of the <see cref="FormatEntry"/> class as a file.
         /// </summary>
-        /// <param name="path">A relative path to the virtual file from the root of the corresponding <see cref="FileFormat"/>.</param>
+        /// <param name="path">A relative path to the virtual file from the root of the corresponding <see cref="Format"/>.</param>
         /// <param name="source">The corresponding <see cref="Stream"/> where the virtual file is located.</param>
         public FormatEntry(string path, Stream source)
         {

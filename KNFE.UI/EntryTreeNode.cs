@@ -10,14 +10,14 @@ namespace KNFE.UI
         // Properties
         public Dictionary<string, string> Fields { get { return (_format == null) ? _entry.ToFields() : _format.ToFields(); } }
         public FormatEntry Entry { get { return _entry; } }
-        public FileFormat Format { get { return _format; } }
+        public Format Format { get { return _format; } }
 
         // Public members
         public readonly bool IsDirectory = true;
 
         // Private members
         private readonly FormatEntry _entry = null;
-        private readonly FileFormat _format = null;
+        private readonly Format _format = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntryTreeNode"/> class with a specified name, key, parent <see cref="TreeNode"/>, and child <see cref="FormatEntry"/>.
@@ -35,10 +35,10 @@ namespace KNFE.UI
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntryTreeNode"/> class with a specified parent <see cref="FileFormat"/>.
+        /// Initializes a new instance of the <see cref="EntryTreeNode"/> class with a specified parent <see cref="Core.Format.Format"/>.
         /// </summary>
-        /// <param name="format">A parent <see cref="FileFormat"/>.</param>
-        public EntryTreeNode(FileFormat format)
+        /// <param name="format">A parent <see cref="Core.Format.Format"/>.</param>
+        public EntryTreeNode(Format format)
             : base(Path.GetFileName(format.FileName))
         {
             Name = Text;
@@ -47,7 +47,7 @@ namespace KNFE.UI
         }
 
         /// <summary>
-        /// Generates a set of fields for a <see cref="FormatEntry"/>-less or <see cref="FileFormat"/>-less <see cref="EntryTreeNode"/>.
+        /// Generates a set of fields for a <see cref="FormatEntry"/>-less or <see cref="Core.Format.Format"/>-less <see cref="EntryTreeNode"/>.
         /// </summary>
         /// <returns>A <see cref="Dictionary{TKey, TValue}"/> containing this <see cref="EntryTreeNode"/>'s fields.</returns>
         private Dictionary<string, string> GenerateFields()
