@@ -39,35 +39,44 @@ namespace KNFE.Core.Encoding
                 if (currentLine.StartsWith(EOS_MARKER))
                     break;
 
-                // Edge case
+                // Blank line, no data
                 if (currentLine.Length == 0)
                     continue;
 
-                // Length indicator
-                int lineLength;
-
-                // Some encoders encode blank lines with a single, differing character
-                // So, if we only have one char, assume a zero-length data stream
+                // Some encoders encode blank lines with a single, varying character
+                // So, if we only have one char on this line, assume a zero-length data stream
+                int bytesOut;
                 if (currentLine.Length == 1)
-                    lineLength = 0;
+                    bytesOut = 0;
                 else
-                    lineLength = GetSixBits(currentLine[0]);
+                    bytesOut = GetSixBits(currentLine[0]);
 
-                // Decode line
-                for (int i = 1; lineLength > 0; i += 4, lineLength -= 3)
+                int bitBuffer = 0;
+                byte bitsIn = 0;
+
+                // Loop through line data
+                // i keeps track of the bytes output
+                // j keeps track of the current line position
+                for (int i = 0, j = 1; i < bytesOut; j++)
                 {
-                    if (lineLength >= 1)
-                        outStream.WriteByte((byte)(GetSixBits(currentLine[i]) << 2 | GetSixBits(currentLine[i + 1]) >> 4));
-                    if (lineLength >= 2)
-                        outStream.WriteByte((byte)(GetSixBits(currentLine[i + 1]) << 4 | GetSixBits(currentLine[i + 2]) >> 2));
-                    if (lineLength >= 3)
-                        outStream.WriteByte((byte)(GetSixBits(currentLine[i + 2]) << 6 | GetSixBits(currentLine[i + 3])));
+                    // Get bits and shift them into the buffer
+                    int bits = GetSixBits(currentLine[j]);
+                    bitBuffer = (bitBuffer << 6) | bits;
+                    bitsIn += 6;
+
+                    // If we have enough bits, output them
+                    if (bitsIn >= 8)
+                    {
+                        bitsIn -= 8;
+                        outStream.WriteByte((byte)(bitBuffer >> bitsIn));
+                        i++;
+                    }
                 }
             }
 
             return;
         }
-
+        
         /// <summary>
         /// Decodes a uuencoded character into a sequence of six bits.
         /// </summary>
