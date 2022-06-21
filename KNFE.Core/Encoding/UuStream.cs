@@ -22,7 +22,7 @@ namespace KNFE.Core.Encoding
         public UuStream(Stream stream)
             : base(stream)
         {
-            _sr = new StreamReader(stream);
+            _sr = new StreamReader(Stream);
         }
 
         public override void Decode(Stream outStream)
@@ -73,8 +73,6 @@ namespace KNFE.Core.Encoding
                     }
                 }
             }
-
-            return;
         }
         
         /// <summary>

@@ -5,10 +5,14 @@ using KNFE.Core.Encoding;
 
 namespace KNFE.Core.Format
 {
+    /// <summary>
+    /// Provides storage for a uuencode item entry and its information.
+    /// </summary>
     public class UuFormatEntry : FormatEntry
     {
         // Internal members
         internal string _perms = "";
+        internal long _startOffset;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UuFormatEntry"/> class as a directory.
@@ -27,6 +31,8 @@ namespace KNFE.Core.Format
             // Check for invalid call
             if (IsDirectory)
                 throw new InvalidOperationException("Attempted to extract data from a directory UuFormatEntry.");
+
+            _source.Seek(_startOffset, SeekOrigin.Begin);
 
             // Decoder
             UuStream stream = new UuStream(_source);

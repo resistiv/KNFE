@@ -3,6 +3,9 @@ using System.IO;
 
 namespace KNFE.Core.Format
 {
+    /// <summary>
+    /// Reads and processes the uuencode file format.
+    /// </summary>
     public class UuFormat : Format
     {
         // Private members
@@ -42,7 +45,7 @@ namespace KNFE.Core.Format
                 _sr.BaseStream.Seek(1, SeekOrigin.Current);
 
             _root = new UuFormatEntry("");
-            _root.AddChild(new UuFormatEntry(header[2], InFileStream) { _perms = perms });
+            _root.AddChild(new UuFormatEntry(header[2], InFileStream) { _perms = perms, _startOffset = _sr.BaseStream.Position});
         }
 
         public override void Close()

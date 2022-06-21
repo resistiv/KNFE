@@ -41,7 +41,12 @@ namespace KNFE.Core.Format.Archive
             // Read directory names block
             for (int i = 0; i < _dirCount; i++)
             {
-                string tempName = _br.ReadString();
+                // string tempName = _br.ReadString();
+                string tempName = "";
+                int tempNameLen = _br.ReadByte();
+                while (tempNameLen-- > 0)
+                    tempName += _br.ReadChar();
+
                 _root.AddChild(new Fallout1DatFormatEntry(tempName));
             }
 

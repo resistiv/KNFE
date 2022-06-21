@@ -31,8 +31,8 @@ namespace KNFE.Core.Encoding.Compression
         public Fallout1LzssStream(Stream stream, int streamLength)
             : base(stream)
         {
-            _br = new BinaryReader(stream);
-            _streamEnd = streamLength + base.Stream.Position;
+            _br = new BinaryReader(Stream);
+            _streamEnd = streamLength + Stream.Position;
             _dict = new byte[DICT_SIZE];
         }
 

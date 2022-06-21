@@ -59,11 +59,15 @@
     <Compile Include="Checksum\CyclicRedundancyCheck.cs" />
     <Compile Include="Checksum\Crc16Arc.cs" />
     <Compile Include="Checksum\Crc16Ccitt.cs" />
+    <Compile Include="Encoding\BinHex4Stream.cs" />
     <Compile Include="Encoding\Compression\Fallout1LzssStream.cs" />
+    <Compile Include="Encoding\Compression\Rle90Stream.cs" />
     <Compile Include="Encoding\EncodingStream.cs" />
     <Compile Include="Encoding\UuStream.cs" />
     <Compile Include="Format\Archive\Fallout1DatFormatEntry.cs" />
     <Compile Include="Format\Archive\Fallout1DatFormat.cs" />
+    <Compile Include="Format\BinHex4Format.cs" />
+    <Compile Include="Format\BinHex4FormatEntry.cs" />
     <Compile Include="Format\EntryProperties.cs" />
     <Compile Include="Format\FormatEntry.cs" />
     <Compile Include="Format\Format.cs" />
