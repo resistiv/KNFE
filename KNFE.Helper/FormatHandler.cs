@@ -18,6 +18,13 @@ namespace KNFE.Helper
         {
             new FormatDescription()
             {
+                Name = "BinHex 4.0",
+                Extensions = new string[] {"hqx"},
+                Identifier = "binhex4",
+                AssemblyType = typeof(KNFE.Core.Format.BinHex4Format)
+            },
+            new FormatDescription()
+            {
                 Name = "Fallout 1 DAT",
                 Extensions = new string[] {"dat"},
                 Identifier = "fallout",
@@ -29,13 +36,6 @@ namespace KNFE.Helper
                 Extensions = new string[] {"uu", "uue"},
                 Identifier = "uuencode",
                 AssemblyType = typeof(KNFE.Core.Format.UuFormat)
-            },
-            new FormatDescription()
-            {
-                Name = "BinHex 4.0",
-                Extensions = new string[] {"hqx"},
-                Identifier = "binhex4",
-                AssemblyType = typeof(KNFE.Core.Format.BinHex4Format)
             }
         };
 
