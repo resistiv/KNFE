@@ -28,6 +28,8 @@ An earlier version of KNFE exists, but it was poorly structured and not designed
 - [X] Recreate KNFE's core functions as a library (KNFE.Core.dll)
 - [X] Basic UI frontend
 - [X] Basic CLI
+- [ ] Create KNFE.Test for testing output, efficiency, etc.
+- [ ] Add detailed breakdowns of formats with sources, link in Supported Formats table
 - [ ] File format identification based on file data (eventually remove FSF, etc.)
 - [ ] Expand EncodingStreams and derived classes to derive from Streams (replicate GZipStream behaviour)
 - [ ] Implement icons for UI tree
