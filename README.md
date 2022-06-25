@@ -3,7 +3,7 @@ KNFE (pronounced "knife") is a C#-based GUI & CLI program for extracting and dec
 
 The current focus for KNFE falls upon the following types of file formats:
 * File formats without modern implementations
-* Proprietary video game file formats
+* Undocumented video game file formats
 * Generally old & obscure file formats
 
 ## Usage
