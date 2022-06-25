@@ -13,11 +13,11 @@ KNFE.CLI -i <infile> -f <formatcode> [-o <outdir>] [-v]
 Or, double-click KNFE.UI to use the GUI version.
 
 ## Supported Formats
-| File Format / Encoding  | Extension(s) | Format Code |
+| File Format / Encoding  | File Name(s) | Format Code |
 | ----------------------- | ------------ | ----------- |
-| BinHex 4.0              | ``hqx``      | ``binhex4`` |
-| Fallout 1 DAT           | ``dat``      | ``fallout`` |
-| Uuencode            | ``uu``, ``uue``  | ``uuencode``|
+| BinHex 4.0              | ``*.hqx``    | ``binhex4`` |
+| Fallout 1 DAT           | ``*.dat``    | ``fallout`` |
+| Uuencode         | ``*.uu``, ``*.uue`` | ``uuencode``|
 
 ## Background
 This project started as a passion project several years back while I was thumbing through the [UTZOO Wiseman Usenet Archive](https://archive.org/details/utzoo-wiseman-usenet-archive) and discovering lots of file & encoding formats I was unfamiliar with. For a while, I had already been working to reverse engineer various video game file formats, and so I took interest in creating modern implementations of the utilities that decoded these obscure Usenet files.
