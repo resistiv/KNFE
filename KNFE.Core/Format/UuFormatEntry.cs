@@ -12,7 +12,7 @@ namespace KNFE.Core.Format
     {
         // Internal members
         internal string _perms = "";
-        internal long _startOffset;
+        internal long _offset;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UuFormatEntry"/> class as a directory.
@@ -32,7 +32,7 @@ namespace KNFE.Core.Format
             if (IsDirectory)
                 throw new InvalidOperationException("Attempted to extract data from a directory UuFormatEntry.");
 
-            _source.Seek(_startOffset, SeekOrigin.Begin);
+            _source.Seek(_offset, SeekOrigin.Begin);
 
             // Decoder
             UuStream stream = new UuStream(_source);
@@ -44,12 +44,15 @@ namespace KNFE.Core.Format
 
         public override Dictionary<string, string> ToFields()
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
+            if (_fields != null)
+                return _fields;
 
-            dict.Add("File Name", ItemPath);
-            dict.Add("Permissions", _perms);
+            _fields = new Dictionary<string, string>();
 
-            return dict;
+            _fields.Add("File Name", ItemPath);
+            _fields.Add("Permissions", _perms);
+
+            return _fields;
         }
 
         /// <summary>

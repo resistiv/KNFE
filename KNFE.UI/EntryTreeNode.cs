@@ -7,11 +7,6 @@ namespace KNFE.UI
 {
     internal class EntryTreeNode : TreeNode
     {
-        // Properties
-        public Dictionary<string, string> Fields { get { return (_format == null) ? _entry.ToFields() : _format.ToFields(); } }
-        public FormatEntry Entry { get { return _entry; } }
-        public Format Format { get { return _format; } }
-
         // Public members
         public readonly bool IsDirectory = true;
 
@@ -47,18 +42,18 @@ namespace KNFE.UI
         }
 
         /// <summary>
-        /// Generates a set of fields for a <see cref="FormatEntry"/>-less or <see cref="Core.Format.Format"/>-less <see cref="EntryTreeNode"/>.
+        /// Returns a <see cref="Dictionary{TKey, TValue}"/> containing a human-readable set of this <see cref="EntryTreeNode"/>'s properties and information.
         /// </summary>
-        /// <returns>A <see cref="Dictionary{TKey, TValue}"/> containing this <see cref="EntryTreeNode"/>'s fields.</returns>
-        private Dictionary<string, string> GenerateFields()
-        {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            string path = FullPath.Substring(FullPath.IndexOf("\\") + 1);
-            string pathType = IsDirectory ? "Directory" : "File";
+        public Dictionary<string, string> Fields { get { return (_format == null) ? _entry.ToFields() : _format.ToFields(); } }
 
-            dict.Add($"{pathType} Path", path);
+        /// <summary>
+        /// Returns the <see cref="FormatEntry"/> that this <see cref="EntryTreeNode"/> represents, if applicable.
+        /// </summary>
+        public FormatEntry Entry { get { return _entry; } }
 
-            return dict;
-        }
+        /// <summary>
+        /// Returns the <see cref="KNFE.Core.Format"/> that this <see cref="EntryTreeNode"/> represents, if applicable.
+        /// </summary>
+        public Format Format { get { return _format; } }
     }
 }

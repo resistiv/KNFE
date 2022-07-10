@@ -14,13 +14,11 @@ namespace KNFE.Core.Format
         public readonly string ItemPath;
         public readonly bool IsDirectory;
 
-        // Properties
-        public FormatEntry[] Children { get { return _children.ToArray(); } }
-
-        // Internal members
-        internal FormatEntry _parent;
-        internal readonly List<FormatEntry> _children;
-        internal Stream _source;
+        // Protected members
+        protected FormatEntry _parent;
+        protected readonly List<FormatEntry> _children;
+        protected Stream _source;
+        protected Dictionary<string, string> _fields = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormatEntry"/> class as a directory.
@@ -99,14 +97,17 @@ namespace KNFE.Core.Format
         /// <returns>A <see cref="Dictionary{TKey, TValue}"/> containing a human-readable set of file properties and information.</returns>
         public virtual Dictionary<string, string> ToFields()
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
+            if (_fields != null)
+                return _fields;
+
+            _fields = new Dictionary<string, string>();
 
             // Construct path with parental pathing
             string outPath = GetFullPath();
 
-            dict.Add((IsDirectory ? "Directory" : "File") + " Path", outPath);
+            _fields.Add((IsDirectory ? "Directory" : "File") + " Name", outPath);
 
-            return dict;
+            return _fields;
         }
 
         /// <summary>
@@ -115,5 +116,10 @@ namespace KNFE.Core.Format
         /// <returns>A set of <see cref="EntryProperties"/> for this <see cref="FormatEntry"/>.</returns>
         /// <param name="outStream">The <see cref="Stream"/> to write output data to.</param>
         public virtual EntryProperties Extract(Stream outStream) => null;
+
+        /// <summary>
+        /// Returns all the child <see cref="FormatEntry"/>s of this <see cref="FormatEntry"/>.
+        /// </summary>
+        public FormatEntry[] Children { get { return _children.ToArray(); } }
     }
 }

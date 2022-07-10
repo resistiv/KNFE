@@ -28,6 +28,10 @@ namespace KNFE.Helper
                     Log.Extract(entry.GetFullPath());
             }
 
+            // Ensure directory
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
             // Attempt to create our output FileStream
             string outPath = $"{path}\\{entry.ItemPath}";
             FileStream fs = new FileStream(outPath, FileMode.OpenOrCreate, FileAccess.Write);
@@ -46,7 +50,7 @@ namespace KNFE.Helper
         /// </summary>
         /// <param name="path">The directory to write the directory's children to.</param>
         /// <param name="entry">The directory FormatEntry to extract children from.</param>
-        public static void ExtractDirectory(string path, FormatEntry entry, bool cli = true, bool verbose = false)
+        public static void ExtractDirectory(string path, FormatEntry entry, bool cli = false, bool verbose = false)
         {
             if (!entry.IsDirectory)
                 throw new InvalidOperationException("Attempted to extract a directory from a non-directory FormatEntry.");

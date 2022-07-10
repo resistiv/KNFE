@@ -92,7 +92,7 @@ namespace KNFE.Core.Format
             rd.Position = rd.Position + _dataForkLen;
             _root.AddChild(new BinHex4FormatEntry(_origFileName, rd)
             {
-                _startOffset = rd.Position - _dataForkLen,
+                _offset = rd.Position - _dataForkLen,
                 _forkLength = _dataForkLen,
                 _crc = BinaryPrimitives.ReverseEndianness(_cbr.ReadUInt16()),
                 _isDataFork = true
@@ -102,7 +102,7 @@ namespace KNFE.Core.Format
             rd.Position = rd.Position + _rsrcForkLen;
             _root.AddChild(new BinHex4FormatEntry($"._{_origFileName}", rd)
             {
-                _startOffset = rd.Position + - _rsrcForkLen,
+                _offset = rd.Position + - _rsrcForkLen,
                 _forkLength = _rsrcForkLen,
                 _crc = BinaryPrimitives.ReverseEndianness(_cbr.ReadUInt16()),
                 _isDataFork = false
@@ -111,15 +111,18 @@ namespace KNFE.Core.Format
 
         public override Dictionary<string, string> ToFields()
         {
-            Dictionary<string, string> dict = base.ToFields();
+            if (_fields != null)
+                return _fields;
 
-            dict.Add("Version", _version.ToString());
-            dict.Add("File Type", _fileType);
-            dict.Add("Creator", _creator);
-            dict.Add("Finder Flags", $"0x{Convert.ToString(_finderFlags, 16).ToUpper()}");
-            dict.Add("Header CRC", $"0x{Convert.ToString(_headerCrc, 16).ToUpper()}");
+            base.ToFields();
 
-            return dict;
+            _fields.Add("Version", _version.ToString());
+            _fields.Add("File Type", _fileType);
+            _fields.Add("Creator", _creator);
+            _fields.Add("Finder Flags", $"0x{Convert.ToString(_finderFlags, 16).ToUpper()}");
+            _fields.Add("Header CRC", $"0x{Convert.ToString(_headerCrc, 16).ToUpper()}");
+
+            return _fields;
         }
 
         public override void Close()
@@ -148,5 +151,10 @@ namespace KNFE.Core.Format
         /// Returns the Finder flags of this <see cref="BinHex4Format"/>.
         /// </summary>
         public short FinderFlags { get { return _finderFlags; } }
+
+        /// <summary>
+        /// Returns the header CRC of this <see cref="BinHex4Format"/>.
+        /// </summary>
+        public ushort HeaderCrc { get { return _headerCrc; } }
     }
 }

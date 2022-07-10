@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNFE.CLI", "KNFE.CLI\KNFE.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNFE.Helper", "KNFE.Helper\KNFE.Helper.csproj", "{5FE83FA8-2DCE-4C17-AF2C-EA3C777F9BEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNFE.Test", "KNFE.Test\KNFE.Test.csproj", "{1FD430B1-5FD6-4D90-B855-A6DF68B6E584}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5FE83FA8-2DCE-4C17-AF2C-EA3C777F9BEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FE83FA8-2DCE-4C17-AF2C-EA3C777F9BEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FE83FA8-2DCE-4C17-AF2C-EA3C777F9BEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FD430B1-5FD6-4D90-B855-A6DF68B6E584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FD430B1-5FD6-4D90-B855-A6DF68B6E584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FD430B1-5FD6-4D90-B855-A6DF68B6E584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FD430B1-5FD6-4D90-B855-A6DF68B6E584}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

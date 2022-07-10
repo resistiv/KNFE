@@ -55,28 +55,31 @@ namespace KNFE.Core.Format.Archive
 
         public override Dictionary<string, string> ToFields()
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
+            if (_fields != null)
+                return _fields;
+
+            _fields = new Dictionary<string, string>();
 
             // Construct path with parental pathing
             string outPath = GetFullPath();
 
             if (IsDirectory)
             {
-                dict.Add("Directory Path", outPath);
+                _fields.Add("Directory Name", outPath);
                 if (_fileCount > -1)
-                    dict.Add("File Count", _fileCount.ToString());
+                    _fields.Add("File Count", _fileCount.ToString());
             }
             else
             {
-                dict.Add("File Path", outPath);
-                dict.Add("Compression", _isCompressed ? "LZSS" : "None");
-                dict.Add("Offset", $"0x{Convert.ToString(_offset, 16).ToUpper()}");
-                dict.Add("Original Size", _originalLength.ToString());
+                _fields.Add("File Name", outPath);
+                _fields.Add("Compression", _isCompressed ? "LZSS" : "None");
+                _fields.Add("Offset", $"0x{Convert.ToString(_offset, 16).ToUpper()}");
+                _fields.Add("Original Size", _originalLength.ToString());
                 if (_isCompressed)
-                    dict.Add("Compressed Size", _compressedLength.ToString());
+                    _fields.Add("Compressed Size", _compressedLength.ToString());
             }
 
-            return dict;
+            return _fields;
         }
 
         /// <summary>
@@ -90,7 +93,7 @@ namespace KNFE.Core.Format.Archive
         /// <summary>
         /// Returns the non-compressed length of the data of this <see cref="Fallout1DatFormatEntry"/>.
         /// </summary>
-        public int OriginalLength { get { return _offset; } }
+        public int OriginalLength { get { return _originalLength; } }
         /// <summary>
         /// Returns the compressed length of the data of this <see cref="Fallout1DatFormatEntry"/>.
         /// </summary>

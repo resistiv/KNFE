@@ -11,15 +11,14 @@ namespace KNFE.Core.Format
         // Public members
         public readonly Stream InFileStream;
         public readonly string FileName;
+        public readonly string FormatName;
 
         // Properties
         public FormatEntry Root { get { return _root; } }
 
         // Protected members
         protected FormatEntry _root = null;
-
-        // Internal members
-        internal readonly string FormatName;
+        protected Dictionary<string, string> _fields = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Format"/> class from a file name.
@@ -44,12 +43,15 @@ namespace KNFE.Core.Format
         /// <returns>A <see cref="Dictionary{TKey, TValue}"/> containing a human-readable set of file properties and information.</returns>
         public virtual Dictionary<string, string> ToFields()
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
+            if (_fields != null)
+                return _fields;
 
-            dict.Add("File Path", Path.GetFileName(FileName));
-            dict.Add("Format Name", FormatName);
+            _fields = new Dictionary<string, string>();
 
-            return dict;
+            _fields.Add("File Name", Path.GetFileName(FileName));
+            _fields.Add("Format Name", FormatName);
+
+            return _fields;
         }
 
         /// <summary>

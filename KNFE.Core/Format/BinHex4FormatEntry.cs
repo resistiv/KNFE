@@ -12,7 +12,7 @@ namespace KNFE.Core.Format
     public class BinHex4FormatEntry : FormatEntry
     {
         // Internal members
-        internal long _startOffset;
+        internal long _offset;
         internal int _forkLength;
         internal ushort _crc;
         internal bool _isDataFork;
@@ -36,7 +36,7 @@ namespace KNFE.Core.Format
                 throw new InvalidOperationException("Attempted to extract data from a directory BinHex4FormatEntry.");
 
             // Read out data
-            _source.Seek(_startOffset, SeekOrigin.Begin);
+            _source.Seek(_offset, SeekOrigin.Begin);
             CrcBinaryReader _cbr = new CrcBinaryReader(_source, new Crc16Ccitt());
             outStream.Write(_cbr.ReadBytes(_forkLength), 0, _forkLength);
 
@@ -53,21 +53,24 @@ namespace KNFE.Core.Format
 
         public override Dictionary<string, string> ToFields()
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
+            if (_fields != null)
+                return _fields;
+            
+            _fields = new Dictionary<string, string>();
             
             if (_isDataFork)
             {
-                dict.Add("Data Fork Name", ItemPath);
-                dict.Add("Data Fork Length", _forkLength.ToString());
+                _fields.Add("Data Fork Name", ItemPath);
+                _fields.Add("Data Fork Length", _forkLength.ToString());
             }
             else
             {
-                dict.Add("Resource Fork Name", ItemPath);
-                dict.Add("Resource Fork Length", _forkLength.ToString());
+                _fields.Add("Resource Fork Name", ItemPath);
+                _fields.Add("Resource Fork Length", _forkLength.ToString());
             }
-            dict.Add("CRC", $"0x{Convert.ToString(_crc, 16).ToUpper()}");
+            _fields.Add("CRC", $"0x{Convert.ToString(_crc, 16).ToUpper()}");
 
-            return dict;
+            return _fields;
         }
 
         /// <summary>

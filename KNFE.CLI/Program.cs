@@ -8,7 +8,7 @@ namespace KNFE.CLI
     public class Program
     {
         /// <summary>
-        /// Main program entry point.
+        /// The main entry point for the application.
         /// </summary>
         public static void Main(string[] args)
         {
@@ -27,8 +27,14 @@ namespace KNFE.CLI
                 Die();
             }
 
-            Log.Info($"Input file: {Path.GetFileName(ArgHandler.InputFile)}");
-            Log.Info($"File format: {ArgHandler.Format.Name}");
+            // Log format information
+            if (ArgHandler.VerboseOutput)
+                Log.Info(format.ToFields());
+            else
+            {
+                Log.Info($"File Name: {Path.GetFileName(format.FileName)}");
+                Log.Info($"File Format: {format.FormatName}");
+            }
 
             // Start extracting from root dir
             ExtractHandler.ExtractDirectory(ArgHandler.OutputPath, format.Root, true, ArgHandler.VerboseOutput);

@@ -5,3 +5,5 @@ packages/
 [Bb]in/
 [Oo]bj/
 _reference/
+*_out/
+KNFE.Test/Fallout1Dat/*.dat

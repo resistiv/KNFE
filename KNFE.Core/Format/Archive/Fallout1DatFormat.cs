@@ -51,7 +51,7 @@ namespace KNFE.Core.Format.Archive
             }
 
             // Read directory contents block
-            foreach (Fallout1DatFormatEntry dir in _root._children)
+            foreach (Fallout1DatFormatEntry dir in _root.Children)
             {
                 // Get file count of the current directory
                 int dirFileCount = BinaryPrimitives.ReverseEndianness(_br.ReadInt32());
@@ -67,7 +67,12 @@ namespace KNFE.Core.Format.Archive
                 // Read file information block
                 for (int i = 0; i < dirFileCount; i++)
                 {
-                    string tempFileName = _br.ReadString();
+                    // string tempFileName = _br.ReadString();
+                    string tempFileName = "";
+                    int tempNameLen = _br.ReadByte();
+                    while (tempNameLen-- > 0)
+                        tempFileName += _br.ReadChar();
+
                     Fallout1DatFormatEntry tempEntry = new Fallout1DatFormatEntry(tempFileName, InFileStream);
 
                     // Read compression attribute
@@ -105,9 +110,14 @@ namespace KNFE.Core.Format.Archive
 
         public override Dictionary<string, string> ToFields()
         {
-            Dictionary<string, string> dict = base.ToFields();
-            dict.Add("Directory Count", _dirCount.ToString());
-            return dict;
+            if (_fields != null)
+                return _fields;
+
+            base.ToFields();
+
+            _fields.Add("Directory Count", _dirCount.ToString());
+
+            return _fields;
         }
 
         public override void Close()

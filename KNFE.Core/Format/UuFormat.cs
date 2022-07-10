@@ -45,7 +45,7 @@ namespace KNFE.Core.Format
                 _sr.BaseStream.Seek(1, SeekOrigin.Current);
 
             _root = new UuFormatEntry("");
-            _root.AddChild(new UuFormatEntry(header[2], InFileStream) { _perms = perms, _startOffset = _sr.BaseStream.Position});
+            _root.AddChild(new UuFormatEntry(header[2], InFileStream) { _perms = perms, _offset = _sr.BaseStream.Position});
         }
 
         public override void Close()
