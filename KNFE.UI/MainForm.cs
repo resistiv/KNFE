@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using KNFE.Core.Format;
@@ -20,6 +21,10 @@ namespace KNFE.UI
             // FIXME: Is there any way we can do this within the Designer?
             dataGrid.ColumnCount = 2;
             dataGrid.Columns[1].Width = dataGrid.Width - dataGrid.Columns[0].Width - dataGrid.Margin.Right;
+
+            // Adds system icons
+            iconList.Images.Add("File", DefaultIcons.File);
+            iconList.Images.Add("Folder", DefaultIcons.Folder);
         }
 
         /// <summary>

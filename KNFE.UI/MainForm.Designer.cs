@@ -43,6 +43,7 @@ namespace KNFE.UI
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.extractContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.extractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iconList = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.extractContext.SuspendLayout();
@@ -108,15 +109,18 @@ namespace KNFE.UI
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutTsmi_Click);
             // 
             // treeViewPanel
             // 
             this.treeViewPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.treeViewPanel.ImageIndex = 0;
+            this.treeViewPanel.ImageList = this.iconList;
             this.treeViewPanel.Location = new System.Drawing.Point(12, 28);
             this.treeViewPanel.Name = "treeViewPanel";
+            this.treeViewPanel.SelectedImageIndex = 0;
             this.treeViewPanel.Size = new System.Drawing.Size(375, 471);
             this.treeViewPanel.TabIndex = 1;
             this.treeViewPanel.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPanel_AfterSelect);
@@ -152,6 +156,12 @@ namespace KNFE.UI
             this.extractToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.extractToolStripMenuItem.Text = "Extract";
             this.extractToolStripMenuItem.Click += new System.EventHandler(this.extractTsmi_Click);
+            // 
+            // iconList
+            // 
+            this.iconList.ColorDepth = System.Windows.Forms.ColorDepth.Depth16Bit;
+            this.iconList.ImageSize = new System.Drawing.Size(16, 16);
+            this.iconList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // MainForm
             // 
@@ -190,6 +200,7 @@ namespace KNFE.UI
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip extractContext;
         private System.Windows.Forms.ToolStripMenuItem extractToolStripMenuItem;
+        private System.Windows.Forms.ImageList iconList;
     }
 }
 

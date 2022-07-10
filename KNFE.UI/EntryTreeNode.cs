@@ -15,17 +15,29 @@ namespace KNFE.UI
         private readonly Format _format = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntryTreeNode"/> class with a specified name, key, parent <see cref="TreeNode"/>, and child <see cref="FormatEntry"/>.
+        /// Initializes a new instance of the <see cref="EntryTreeNode"/> class with a specified name and parent <see cref="FormatEntry"/>.
         /// </summary>
         /// <param name="key">A specified name & key.</param>
-        /// <param name="parent">A parent <see cref="TreeNode"/>.</param>
-        /// <param name="entry">A child <see cref="FormatEntry"/>.</param>
+        /// <param name="entry">A parent <see cref="FormatEntry"/>.</param>
         public EntryTreeNode(string key, FormatEntry entry)
             : base(key)
         {
             Name = Text;
 
             IsDirectory = entry.IsDirectory;
+
+            // Icons
+            if (IsDirectory)
+            {
+                ImageKey = "Folder";
+                SelectedImageKey = "Folder";
+            }
+            else
+            {
+                ImageKey = "File";
+                SelectedImageKey = "File";
+            }
+
             _entry = entry;
         }
 
@@ -37,6 +49,10 @@ namespace KNFE.UI
             : base(Path.GetFileName(format.FileName))
         {
             Name = Text;
+
+            // Icons
+            ImageKey = "Folder";
+            SelectedImageKey = "Folder";
 
             _format = format;
         }
