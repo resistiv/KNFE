@@ -1,6 +1,6 @@
-﻿using KNFE.Core.Format;
+﻿using System.IO;
+using KNFE.Core.Format;
 using KNFE.Helper;
-using System.IO;
 
 namespace KNFE.Test
 {

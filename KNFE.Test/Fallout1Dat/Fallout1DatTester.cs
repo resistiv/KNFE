@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using KNFE.Core.Format;
 using KNFE.Core.Format.Archive;
 using KNFE.Helper;
 
