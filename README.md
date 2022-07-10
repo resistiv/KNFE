@@ -30,9 +30,9 @@ An earlier version of KNFE exists, but it was poorly structured and not designed
 - [X] Basic CLI
 - [X] Create KNFE.Test for testing output, efficiency, etc.
 - [X] Add detailed breakdowns of formats with sources, link in Supported Formats table
+- [X] Implement icons for UI tree
 - [ ] File format identification based on file data (eventually remove FSF, etc.)
 - [ ] Expand EncodingStreams and derived classes to derive from Streams (replicate GZipStream behaviour)
-- [ ] Implement icons for UI tree
 - [ ] Unify EncodingStreams for related encodings (LZSS variants, preset class)
 
 ## License
