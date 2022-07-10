@@ -72,4 +72,9 @@
     <Content Include="KNFE.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>del *.pdb
+del *.config
+del *.xml</PostBuildEvent>
+  </PropertyGroup>
 </Project>
