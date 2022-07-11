@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace KNFE.Core.Format
+namespace KNFE.Core.Format.Transport
 {
     /// <summary>
     /// Reads and processes the uuencode file format.
@@ -14,6 +14,10 @@ namespace KNFE.Core.Format
         // Private constants
         private const string HEADER = "begin";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UuFormat"/> class from a file name.
+        /// </summary>
+        /// <param name="fileName">The name of a uuencoded file to process.</param>
         public UuFormat(string fileName)
             : base("uuencode", fileName)
         {

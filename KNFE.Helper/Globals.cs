@@ -9,7 +9,7 @@ namespace KNFE.Helper
     {
         // Versioning
         public const int MajorVersion = 2;
-        public const int MinorVersion = 0;
+        public const int MinorVersion = 1;
         public const int PatchVersion = 0;
 
         // Program info

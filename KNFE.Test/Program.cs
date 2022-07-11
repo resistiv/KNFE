@@ -25,6 +25,7 @@ namespace KNFE.Test
             BinHex4Tester.RunAllTests();
             Fallout1DatTester.RunAllTests();
             UuTester.RunAllTests();
+            VibRibbonPakTester.RunAllTests();
 
             if (ErrorNum == 0)
                 Log.Info("All tests completed successfully.");

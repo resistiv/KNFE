@@ -13,11 +13,12 @@ KNFE.CLI -i <infile> -f <formatcode> [-o <outdir>] [-v]
 Or, double-click ``KNFE.UI.exe`` to use the GUI version.
 
 ## Supported Formats
-| File Format / Encoding                                                              | File Name(s)                     | Format Code |
-| ----------------------------------------------------------------------------------- | -------------------------------- | ----------- |
-| [BinHex 4.0](https://github.com/resistiv/KNFE/wiki/BinHex-4.0)                      | ``hqx``                          | ``binhex4`` |
-| [Fallout 1 DAT](https://github.com/resistiv/KNFE/wiki/Fallout-1-DAT)                | ``dat``                          | ``fallout`` |
-| [Uuencode](https://github.com/resistiv/KNFE/wiki/Uuencode)                          | ``uu``, ``uue``                  | ``uuencode``|
+| File Format / Encoding                                                              | File Name(s)                     | Format Code  |
+| ----------------------------------------------------------------------------------- | -------------------------------- | ------------ |
+| [BinHex 4.0](https://github.com/resistiv/KNFE/wiki/BinHex-4.0)                      | ``*.hqx``                        | ``binhex4``  |
+| [Fallout 1 DAT](https://github.com/resistiv/KNFE/wiki/Fallout-1-DAT)                | ``*.dat``                        | ``fallout``  |
+| [Uuencode](https://github.com/resistiv/KNFE/wiki/Uuencode)                          | ``*.uu``, ``*.uue``              | ``uuencode`` |
+| [Vib-Ribbon PAK](https://github.com/resistiv/KNFE/wiki/Vib-Ribbon-PAK)              | ``*.pak``                        | ``vibribbon``|
 
 ## Background
 This project started as a passion project several years back while I was thumbing through the [UTZOO Wiseman Usenet Archive](https://archive.org/details/utzoo-wiseman-usenet-archive) and discovering lots of file & encoding formats I was unfamiliar with. For a while, I had already been working to reverse engineer various video game file formats, and so I took interest in creating modern implementations of the utilities that decoded these obscure Usenet files.

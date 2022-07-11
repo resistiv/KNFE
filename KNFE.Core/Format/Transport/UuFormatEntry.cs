@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using KNFE.Core.Encoding;
 
-namespace KNFE.Core.Format
+namespace KNFE.Core.Format.Transport
 {
     /// <summary>
     /// Provides storage for a uuencode item entry and its information.

@@ -7,7 +7,7 @@ using KNFE.Core.Encoding;
 using KNFE.Core.Encoding.Compression;
 using KNFE.Core.Reader;
 
-namespace KNFE.Core.Format
+namespace KNFE.Core.Format.Transport
 {
     /// <summary>
     /// Reads and processes the BinHex 4.0 file format.
@@ -29,6 +29,10 @@ namespace KNFE.Core.Format
         // Constants
         private const string MAGIC_ID = "(This file must be converted with BinHex 4.0)";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BinHex4Format"/> class from a file name.
+        /// </summary>
+        /// <param name="fileName">The name of a BinHex 4.0 file to process.</param>
         public BinHex4Format(string fileName)
             : base("BinHex 4.0", fileName)
         {

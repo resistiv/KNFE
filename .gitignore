@@ -7,3 +7,4 @@ packages/
 _reference/
 *_out/
 KNFE.Test/Fallout1Dat/*.dat
+KNFE.Test/VibRibbonPak/*.pak

@@ -7,7 +7,7 @@ using KNFE.Core.Util;
 namespace KNFE.Core.Format.Archive
 {
     /// <summary>
-    /// Provides storage for a Fallout 1 *.DAT item entry and its information.
+    /// Provides storage for a Fallout 1 DAT item entry and its information.
     /// </summary>
     public class Fallout1DatFormatEntry : FormatEntry
     {
@@ -74,9 +74,9 @@ namespace KNFE.Core.Format.Archive
                 _fields.Add("File Name", outPath);
                 _fields.Add("Compression", _isCompressed ? "LZSS" : "None");
                 _fields.Add("Offset", $"0x{Convert.ToString(_offset, 16).ToUpper()}");
-                _fields.Add("Original Size", _originalLength.ToString());
+                _fields.Add("Original Length", _originalLength.ToString());
                 if (_isCompressed)
-                    _fields.Add("Compressed Size", _compressedLength.ToString());
+                    _fields.Add("Compressed Length", _compressedLength.ToString());
             }
 
             return _fields;

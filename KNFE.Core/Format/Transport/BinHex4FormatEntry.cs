@@ -4,7 +4,7 @@ using System.IO;
 using KNFE.Core.Checksum;
 using KNFE.Core.Reader;
 
-namespace KNFE.Core.Format
+namespace KNFE.Core.Format.Transport
 {
     /// <summary>
     /// Provides storage for a BinHex 4.0 item entry and its information.

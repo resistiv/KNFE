@@ -21,7 +21,7 @@ namespace KNFE.Helper
                 Name = "BinHex 4.0",
                 Extensions = new string[] {"hqx"},
                 Identifier = "binhex4",
-                AssemblyType = typeof(KNFE.Core.Format.BinHex4Format)
+                AssemblyType = typeof(KNFE.Core.Format.Transport.BinHex4Format)
             },
             new FormatDescription()
             {
@@ -35,7 +35,14 @@ namespace KNFE.Helper
                 Name = "uuencode",
                 Extensions = new string[] {"uu", "uue"},
                 Identifier = "uuencode",
-                AssemblyType = typeof(KNFE.Core.Format.UuFormat)
+                AssemblyType = typeof(KNFE.Core.Format.Transport.UuFormat)
+            },
+            new FormatDescription()
+            {
+                Name = "Vib-Ribbon PAK",
+                Extensions = new string[] {"pak"},
+                Identifier = "vibribbon",
+                AssemblyType = typeof(KNFE.Core.Format.Archive.VibRibbonPakFormat)
             }
         };
 
@@ -46,7 +53,8 @@ namespace KNFE.Helper
         /// <returns>An array of possible <see cref="FormatDescription"/>s that match the extension pattern of the given file name.</returns>
         public static FormatDescription[] ResolveFromFileName(string fileName)
         {
-            // FIXME: This method and ResolveFromFormatCode will be deprecated upon the implementation of ResolveFile(), in which file characteristics will be weighed to produce the most likely match
+            // FIXME: This method and ResolveFromFormatCode will be deprecated upon the implementation of ResolveFile(),
+            // in which file characteristics will be weighed to produce the most likely match.
 
             if (!File.Exists(fileName))
                 throw new FileNotFoundException();
@@ -67,9 +75,10 @@ namespace KNFE.Helper
         /// <returns>A <see cref="FormatDescription"/> if a passed a matching format code, <c>null</c> otherwise.</returns>
         public static FormatDescription ResolveFromFormatCode(string formatCode)
         {
-            // FIXME: This method and ResolveFromFileName will be deprecated upon the implementation of ResolveFile(), in which file characteristics will be weighed to produce the most likely match
+            // FIXME: This method and ResolveFromFileName will be deprecated upon the implementation of ResolveFile(),
+            // in which file characteristics will be weighed to produce the most likely match..
 
-            // Because all identifiers are unique, only find First, default for no result is null
+            // Because all identifiers are unique, only find first, default for no result is null
             return Formats.FirstOrDefault(fd => fd.Identifier == formatCode);
         }
 
