@@ -78,7 +78,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader\BitReader.cs" />
     <Compile Include="Reader\CrcBinaryReader.cs" />
-    <Compile Include="Util\Tools.cs" />
+    <Compile Include="Utils\Generic.cs" />
+    <Compile Include="Utils\Time.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Encryption\" />
