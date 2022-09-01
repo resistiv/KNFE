@@ -12,7 +12,7 @@ namespace KNFE.Core.Format.Archive
     {
         // Private members
         private readonly BinaryReader _br;
-        private readonly int _dirCount;
+        private readonly uint _dirCount;
 
         // Private constants
         private const int FLAG_TEXT = 0x20;
@@ -29,21 +29,18 @@ namespace KNFE.Core.Format.Archive
             _br = new BinaryReader(InFileStream);
 
             // Read expected number of directories and init root dir
-            _dirCount = BinaryPrimitives.ReverseEndianness(_br.ReadInt32());
-            if (_dirCount < 1)
-                throw new InvalidDataException($"Received invalid directory count ({_dirCount}) within a {FormatName} file.");
-
+            _dirCount = BinaryPrimitives.ReverseEndianness(_br.ReadUInt32());
             _root = new Fallout1DatFormatEntry("");
 
             // Skip unknown bytes; doesn't matter to processing
             _br.BaseStream.Seek(12, SeekOrigin.Current);
 
             // Read directory names block
-            for (int i = 0; i < _dirCount; i++)
+            for (uint i = 0; i < _dirCount; i++)
             {
                 // string tempName = _br.ReadString();
                 string tempName = "";
-                int tempNameLen = _br.ReadByte();
+                byte tempNameLen = _br.ReadByte();
                 while (tempNameLen-- > 0)
                     tempName += _br.ReadChar();
 
@@ -54,9 +51,7 @@ namespace KNFE.Core.Format.Archive
             foreach (Fallout1DatFormatEntry dir in _root.Children)
             {
                 // Get file count of the current directory
-                int dirFileCount = BinaryPrimitives.ReverseEndianness(_br.ReadInt32());
-                if (dirFileCount < 1)
-                    throw new InvalidDataException($"Received invalid directory file count ({dirFileCount}) within a {FormatName} file entry.");
+                uint dirFileCount = BinaryPrimitives.ReverseEndianness(_br.ReadUInt32());
 
                 // Record item count
                 dir._fileCount = dirFileCount;
@@ -65,7 +60,7 @@ namespace KNFE.Core.Format.Archive
                 _br.BaseStream.Seek(12, SeekOrigin.Current);
 
                 // Read file information block
-                for (int i = 0; i < dirFileCount; i++)
+                for (uint i = 0; i < dirFileCount; i++)
                 {
                     // string tempFileName = _br.ReadString();
                     string tempFileName = "";
@@ -86,19 +81,19 @@ namespace KNFE.Core.Format.Archive
                             tempEntry._isCompressed = false;
                             break;
                         default:
-                            throw new InvalidDataException($"Received invalid compression flag (0x{Convert.ToString(compFlags, 16).ToUpper()}) within a {FormatName} file entry.");
+                            throw new InvalidDataException($"{GetType().Name}: Received invalid compression flag (0x{Convert.ToString(compFlags, 16).ToUpper()}) within an entry of {FileName}.");
                     }
 
                     // Read remaining file attributes
-                    tempEntry._offset = BinaryPrimitives.ReverseEndianness(_br.ReadInt32());
+                    tempEntry._offset = BinaryPrimitives.ReverseEndianness(_br.ReadUInt32());
                     if (tempEntry._offset > _br.BaseStream.Length)
-                        throw new InvalidDataException($"Received invalid data offset (0x{Convert.ToString(tempEntry._offset, 16).ToUpper()}) within a {FormatName} file entry.");
+                        throw new InvalidDataException($"{GetType().Name}: Received invalid data offset (0x{Convert.ToString(tempEntry._offset, 16).ToUpper()}) within an entry of {FileName}.");
 
-                    tempEntry._originalLength = BinaryPrimitives.ReverseEndianness(_br.ReadInt32());
+                    tempEntry._originalLength = BinaryPrimitives.ReverseEndianness(_br.ReadUInt32());
 
-                    tempEntry._compressedLength = BinaryPrimitives.ReverseEndianness(_br.ReadInt32());
+                    tempEntry._compressedLength = BinaryPrimitives.ReverseEndianness(_br.ReadUInt32());
                     if (tempEntry._compressedLength + tempEntry._offset > _br.BaseStream.Length)
-                        throw new InvalidDataException($"Received invalid data length (0x{Convert.ToString(tempEntry._compressedLength, 16).ToUpper()}) within a {FormatName} file entry.");
+                        throw new InvalidDataException($"{GetType().Name}: Received invalid data length (0x{Convert.ToString(tempEntry._compressedLength, 16).ToUpper()}) within an entry of {FileName}.");
 
                     // Add to our working directory
                     dir.AddChild(tempEntry);
@@ -206,6 +201,6 @@ namespace KNFE.Core.Format.Archive
         /// <summary>
         /// Returns the number of directories contained within this <see cref="Fallout1DatFormat"/>.
         /// </summary>
-        public int DirectoryCount { get { return _dirCount; } }
+        public uint DirectoryCount { get { return _dirCount; } }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using KNFE.Core.Encoding.Compression;
-using KNFE.Core.Util;
+using KNFE.Core.Utils;
 
 namespace KNFE.Core.Format.Archive
 {
@@ -13,10 +13,10 @@ namespace KNFE.Core.Format.Archive
     {
         // Internal members
         internal bool _isCompressed = false;
-        internal int _offset = -1;
-        internal int _originalLength = -1;
-        internal int _compressedLength = -1;
-        internal int _fileCount = -1;
+        internal uint _offset = 0;
+        internal uint _originalLength = 0;
+        internal uint _compressedLength = 0;
+        internal uint _fileCount = 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Fallout1DatFormatEntry"/> class as a directory.
@@ -35,13 +35,13 @@ namespace KNFE.Core.Format.Archive
         {
             // Check for invalid call
             if (IsDirectory)
-                throw new InvalidOperationException("Attempted to extract data from a directory Fallout1DatFormatEntry.");
+                throw new InvalidOperationException($"{GetType().Name}: Attempted to extract data from a directory.");
 
             // Seek to source data offset and extract based on compression method
             _source.Seek(_offset, SeekOrigin.Begin);
             if (!IsCompressed)
             {
-                Tools.SubStream(_source, outStream, _originalLength);
+                Generic.SubStream(_source, outStream, _originalLength);
             }
             else
             {
@@ -89,18 +89,18 @@ namespace KNFE.Core.Format.Archive
         /// <summary>
         /// Returns the offset of this <see cref="Fallout1DatFormatEntry"/>'s data within its source Stream.
         /// </summary>
-        public int Offset { get { return _offset; } }
+        public uint Offset { get { return _offset; } }
         /// <summary>
         /// Returns the non-compressed length of the data of this <see cref="Fallout1DatFormatEntry"/>.
         /// </summary>
-        public int OriginalLength { get { return _originalLength; } }
+        public uint OriginalLength { get { return _originalLength; } }
         /// <summary>
         /// Returns the compressed length of the data of this <see cref="Fallout1DatFormatEntry"/>.
         /// </summary>
-        public int CompressedLength { get { return _compressedLength; } }
+        public uint CompressedLength { get { return _compressedLength; } }
         /// <summary>
         /// Returns the number of child <see cref="Fallout1DatFormatEntry"/>s within this <see cref="Fallout1DatFormatEntry"/>.
         /// </summary>
-        public int FileCount { get { return _fileCount; } }
+        public uint FileCount { get { return _fileCount; } }
     }
 }

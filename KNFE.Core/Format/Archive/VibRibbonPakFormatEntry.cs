@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using KNFE.Core.Util;
+using KNFE.Core.Utils;
 
 namespace KNFE.Core.Format.Archive
 {
@@ -11,9 +11,9 @@ namespace KNFE.Core.Format.Archive
     public class VibRibbonPakFormatEntry : FormatEntry
     {
         // Internal members
-        internal int _offset = -1;
-        internal int _length = -1;
-        internal int _headerLength = -1;
+        internal uint _offset = 0;
+        internal uint _length = 0;
+        internal uint _headerLength = 0;
         /// <summary>
         /// Initializes a new instance of the <see cref="VibRibbonPakFormatEntry"/> class as a directory.
         /// </summary>
@@ -35,7 +35,7 @@ namespace KNFE.Core.Format.Archive
 
             // Seek to source data offset and extract data
             _source.Seek(_offset + _headerLength, SeekOrigin.Begin);
-            Tools.SubStream(_source, outStream, _length);
+            Generic.SubStream(_source, outStream, _length);
 
             // No EntryProperties to write
             return null;
@@ -68,10 +68,10 @@ namespace KNFE.Core.Format.Archive
         /// <summary>
         /// Returns the length of the data of this <see cref="VibRibbonPakFormatEntry"/>.
         /// </summary>
-        public int Length { get { return _length; } }
+        public uint Length { get { return _length; } }
         /// <summary>
         /// Returns the offset of this <see cref="VibRibbonPakFormatEntry"/>'s data within its source Stream.
         /// </summary>
-        public int Offset { get { return _offset; } }
+        public uint Offset { get { return _offset; } }
     }
 }

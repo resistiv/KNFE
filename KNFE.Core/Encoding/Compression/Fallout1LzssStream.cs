@@ -28,7 +28,7 @@ namespace KNFE.Core.Encoding.Compression
         /// </summary>
         /// <param name="stream">The source <see cref="Stream"/> to read from.</param>
         /// <param name="streamLength">The length, in bytes, of raw data to read from the source <see cref="Stream"/>.</param>
-        public Fallout1LzssStream(Stream stream, int streamLength)
+        public Fallout1LzssStream(Stream stream, long streamLength)
             : base(stream)
         {
             _br = new BinaryReader(Stream);

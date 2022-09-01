@@ -30,7 +30,7 @@ namespace KNFE.Core.Format.Transport
         {
             // Check for invalid call
             if (IsDirectory)
-                throw new InvalidOperationException("Attempted to extract data from a directory UuFormatEntry.");
+                throw new InvalidOperationException($"{GetType().Name}: Attempted to extract data from a directory.");
 
             _source.Seek(_offset, SeekOrigin.Begin);
 

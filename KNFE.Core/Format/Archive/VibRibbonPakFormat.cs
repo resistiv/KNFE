@@ -10,8 +10,8 @@ namespace KNFE.Core.Format.Archive
     {
         // Private members
         private readonly BinaryReader _br;
-        private readonly int _fileCount;
-        private readonly int[] _fileOffsets;
+        private readonly uint _fileCount;
+        private readonly uint[] _fileOffsets;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VibRibbonPakFormat"/> class from a file name.
@@ -26,12 +26,12 @@ namespace KNFE.Core.Format.Archive
             _root = new VibRibbonPakFormatEntry("");
 
             // Read number of files
-            _fileCount = _br.ReadInt32();
-            _fileOffsets = new int[_fileCount];
+            _fileCount = _br.ReadUInt32();
+            _fileOffsets = new uint[_fileCount];
 
             // Read TOC
             for (int i = 0; i < _fileCount; i++)
-                _fileOffsets[i] = _br.ReadInt32();
+                _fileOffsets[i] = _br.ReadUInt32();
 
             // Read file info
             for (int i = 0; i < _fileCount; i++)
@@ -86,9 +86,9 @@ namespace KNFE.Core.Format.Archive
                 }
 
                 // Add attributes
-                curEntry._length = _br.ReadInt32();
+                curEntry._length = _br.ReadUInt32();
                 curEntry._offset = _fileOffsets[i];
-                curEntry._headerLength = (int)(_br.BaseStream.Position - _fileOffsets[i]);
+                curEntry._headerLength = (uint)(_br.BaseStream.Position - _fileOffsets[i]);
             }
         }
 
@@ -113,6 +113,6 @@ namespace KNFE.Core.Format.Archive
         /// <summary>
         /// Returns the number of files contained within this <see cref="VibRibbonPakFormat"/>.
         /// </summary>
-        public int FileCount { get { return _fileCount; } }
+        public uint FileCount { get { return _fileCount; } }
     }
 }

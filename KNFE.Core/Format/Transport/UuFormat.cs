@@ -29,16 +29,16 @@ namespace KNFE.Core.Format.Transport
             string fullHead = _sr.ReadLine();
             string[] header = fullHead.Split(' ');
             if (header.Length != 3)
-                throw new InvalidDataException($"Received malformed header within a {FormatName} file.");
+                throw new InvalidDataException($"{GetType().Name}: Received malformed header ({fullHead}) within {FileName}.");
 
             // Compare magic "begin"
             if (header[0] != HEADER)
-                throw new InvalidDataException($"Received invalid header ({header[0]}) within a {FormatName} file.");
+                throw new InvalidDataException($"{GetType().Name}: Received invalid header ({header[0]}) within {FileName}.");
 
             // Convert octal perms to int
             int permNum = Convert.ToInt32(header[1], 8);
             if (permNum < 0 || permNum > 511) // 511 is equal to 0777
-                throw new InvalidDataException($"Received invalid file permissions ({header[1]}) within a {FormatName} file.");
+                throw new InvalidDataException($"{GetType().Name}: Received invalid file permissions ({header[1]}) within {FileName}.");
 
             // Save to perms
             string perms = ConvertUnixOctalPermissions(permNum);

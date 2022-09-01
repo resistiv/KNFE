@@ -29,7 +29,7 @@ namespace KNFE.Core.Encoding
             while (_br.ReadChar() != STREAM_MARKER)
             {
                 if (_br.BaseStream.Position == _br.BaseStream.Length)
-                    throw new InvalidDataException($"Could not find stream start marker \":\" in BinHex4Stream.");
+                    throw new InvalidDataException($"{GetType().Name}: Could not find stream start marker \":\".");
             }
 
             int bitBuffer = 0;
@@ -70,7 +70,7 @@ namespace KNFE.Core.Encoding
 
             if (d == INVALID_ENTRY)
             {
-                throw new InvalidDataException($"Received invalid character '{c}' in BinHex4Stream.");
+                throw new InvalidDataException($"{GetType().Name}: Received invalid character '{c}'.");
             }
 
             return d;

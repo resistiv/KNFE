@@ -41,7 +41,7 @@ namespace KNFE.Core.Format.Transport
             // Read magic
             string inMagic = _sr.ReadLine();
             if (!inMagic.StartsWith(MAGIC_ID))
-                throw new InvalidDataException($"Expected header \"{MAGIC_ID}\" within a {FormatName} file.");
+                throw new InvalidDataException($"{GetType().Name}: Expected header \"{MAGIC_ID}\", received \"{inMagic}\" within {FileName}.");
 
             // Fix offset from StreamReader buffering
             _sr.BaseStream.Seek(inMagic.Length, SeekOrigin.Begin);
@@ -87,7 +87,7 @@ namespace KNFE.Core.Format.Transport
             ushort calcCrc = (ushort)_cbr.Crc.Crc;
             _headerCrc = BinaryPrimitives.ReverseEndianness(_cbr.ReadUInt16());
             if (_headerCrc != calcCrc)
-                throw new InvalidDataException($"Calculated CRC (0x{Convert.ToString(calcCrc, 16).ToUpper()}) did not match the CRC within the header (0x{Convert.ToString(_headerCrc, 16).ToUpper()}) of a {FormatName} file.");
+                throw new InvalidDataException($"{GetType().Name}: Calculated CRC (0x{Convert.ToString(calcCrc, 16).ToUpper()}) did not match the header CRC (0x{Convert.ToString(_headerCrc, 16).ToUpper()}) within {FileName}.");
 
             // Root
             _root = new BinHex4FormatEntry("");

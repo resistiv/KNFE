@@ -17,7 +17,7 @@ namespace KNFE.Helper
         public static void ExtractFile(string path, FormatEntry entry, bool cli = false, bool verbose = false)
         {
             if (entry.IsDirectory)
-                throw new InvalidOperationException("Attempted to extract a file from a non-file FormatEntry.");
+                throw new InvalidOperationException($"{typeof(ExtractHandler).Name}: Attempted to extract a file from a non-file FormatEntry.");
             
             // CLI output
             if (cli)
@@ -53,7 +53,7 @@ namespace KNFE.Helper
         public static void ExtractDirectory(string path, FormatEntry entry, bool cli = false, bool verbose = false)
         {
             if (!entry.IsDirectory)
-                throw new InvalidOperationException("Attempted to extract a directory from a non-directory FormatEntry.");
+                throw new InvalidOperationException($"{typeof(ExtractHandler).Name}: Attempted to extract a directory from a non-directory FormatEntry.");
 
             string dirPath = $"{path}\\{entry.ItemPath}";
 
