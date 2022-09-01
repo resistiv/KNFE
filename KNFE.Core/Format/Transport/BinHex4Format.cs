@@ -46,10 +46,10 @@ namespace KNFE.Core.Format.Transport
             // Fix offset from StreamReader buffering
             _sr.BaseStream.Seek(inMagic.Length, SeekOrigin.Begin);
 
-            // BinHex is somewhat unique in the fact the entire file, header and all, are obscured behind it's encoding(s).
+            // BinHex is somewhat unique in the fact the entire file, header and all, are obscured behind its encoding(s).
             // Normally, we'd decode a certain section of the file when extracting one or more of its FormatEntries,
             // but in order to get any info we have to decode it all here.
-            // However, this isn't too big of a problem, as BinHex files are small enough that memory usage isn't a concern.
+            // However, this isn't too big of a problem, as BinHex files (in general) are small enough that memory usage isn't a concern.
 
             // Decode BinHex 4.0 layer
             MemoryStream bhd = new MemoryStream();
