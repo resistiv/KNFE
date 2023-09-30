@@ -17,6 +17,7 @@ Or, double-click ``KNFE.UI.exe`` to use the GUI version.
 | ----------------------------------------------------------------------------------- | -------------------------------- | ------------ |
 | [BinHex 4.0](https://github.com/resistiv/KNFE/wiki/BinHex-4.0)                      | ``*.hqx``                        | ``binhex4``  |
 | [Fallout 1 DAT](https://github.com/resistiv/KNFE/wiki/Fallout-1-DAT)                | ``*.dat``                        | ``fallout``  |
+| [Reel Fishing PAK](https://github.com/resistiv/KNFE/wiki/Reel-Fishing-PAK)          | ``*.pak``, ``*.mb``, ``*.bp``,``*.sp``, ``*.t0p``, ``*.t1p``, ``*.u0p``, ``*.fsp``, ``*.tap``, ``*.aqp``, ``*.tpk`` | ``reelfishing`` |
 | [Uuencode](https://github.com/resistiv/KNFE/wiki/Uuencode)                          | ``*.uu``, ``*.uue``              | ``uuencode`` |
 | [Vib-Ribbon PAK](https://github.com/resistiv/KNFE/wiki/Vib-Ribbon-PAK)              | ``*.pak``                        | ``vibribbon``|
 

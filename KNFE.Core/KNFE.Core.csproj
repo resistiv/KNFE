@@ -66,6 +66,8 @@
     <Compile Include="Encoding\UuStream.cs" />
     <Compile Include="Format\Archive\Fallout1DatFormatEntry.cs" />
     <Compile Include="Format\Archive\Fallout1DatFormat.cs" />
+    <Compile Include="Format\Archive\ReelFishingPakFormat.cs" />
+    <Compile Include="Format\Archive\ReelFishingPakFormatEntry.cs" />
     <Compile Include="Format\Archive\VibRibbonPakFormat.cs" />
     <Compile Include="Format\Archive\VibRibbonPakFormatEntry.cs" />
     <Compile Include="Format\Transport\BinHex4Format.cs" />

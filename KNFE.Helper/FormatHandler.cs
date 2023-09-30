@@ -32,6 +32,13 @@ namespace KNFE.Helper
             },
             new FormatDescription()
             {
+                Name = "Reel Fishing PAK",
+                Extensions = new string[] { "pak", "mb", "bp", "sp", "t0p", "t1p", "u0p", "fsp", "tap", "aqp", "tpk" },
+                Identifier = "reelfishing",
+                AssemblyType = typeof(KNFE.Core.Format.Archive.ReelFishingPakFormat)
+            },
+            new FormatDescription()
+            {
                 Name = "uuencode",
                 Extensions = new string[] {"uu", "uue"},
                 Identifier = "uuencode",
